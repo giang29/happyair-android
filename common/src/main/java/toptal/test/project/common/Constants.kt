@@ -1,0 +1,5 @@
+package toptal.test.project.common
+
+const val TAG_STRING_BASE_URL = "STRING_BASE_URL"
+const val TAG_SCHEDULER_POST_EXECTION = "SCHEDULER_POST_EXECTION"
+const val TAG_BOOLEAN_DEBUG = "BOOLEAN_DEBUG"
