@@ -7,12 +7,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
+import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 import retrofit2.CallAdapter
 import retrofit2.converter.moshi.MoshiConverterFactory
 import toptal.test.project.common.TAG_BOOLEAN_DEBUG
-import toptal.test.project.remote.common.AuthenticationInterceptor
+import toptal.test.project.data.feedback.FeedbackRemoteDataStore
 import toptal.test.project.remote.common.AQRxJava2CallAdapterFactory
+import toptal.test.project.remote.feedback.FeedbackRemoteDataStoreImpl
 import java.util.concurrent.TimeUnit
 
 internal const val TAG_OKHTTPCLIENT_AUTHENTICATION = "OKHTTPCLIENT_AUTHENTICATION"
@@ -50,10 +52,6 @@ val remoteModule = Kodein.Module("RemoteModule") {
         }
     }
 
-    bind<Interceptor>(tag = TAG_INTERCEPTOR_AUTHENTICATION) with singleton {
-        AuthenticationInterceptor(instance())
-    }
-
     bind<MoshiConverterFactory>() with singleton {
         MoshiConverterFactory.create(instance())
     }
@@ -67,5 +65,9 @@ val remoteModule = Kodein.Module("RemoteModule") {
 
     bind<CallAdapter.Factory>() with singleton {
         AQRxJava2CallAdapterFactory.create()
+    }
+
+    bind<FeedbackRemoteDataStore>() with provider {
+        FeedbackRemoteDataStoreImpl()
     }
 }
