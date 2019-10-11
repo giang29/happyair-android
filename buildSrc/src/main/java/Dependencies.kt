@@ -33,7 +33,6 @@ object Versions {
 
     // Android Architecture Components
     const val lifecycle = "2.0.0"
-    const val room = "2.0.0-beta01"
 
     // koptional
     const val koptional = "1.3.0"
@@ -44,11 +43,6 @@ object Versions {
     // Groupie
     const val groupie = "2.5.1"
 
-    // JUnit
-    const val jUnit = "4.12"
-
-    // AssertJ
-    const val assertJ = "3.9.0"
 }
 
 object Dependencies {
@@ -80,12 +74,7 @@ object Dependencies {
     const val rxBindingAppCompat =
         "com.jakewharton.rxbinding3:rxbinding-appcompat:${Versions.rxBinding}"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxKotlin}"
-    const val room = "androidx.room:room-runtime:${Versions.room}"
-    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
-    const val roomRxJava = "androidx.room:room-rxjava2:${Versions.room}"
     const val koptional = "com.gojuno.koptional:koptional:${Versions.koptional}"
-    const val koptionalRxJavaExtensions =
-        "com.gojuno.koptional:koptional-rxjava2-extensions:${Versions.koptional}"
     const val cardView = "androidx.cardview:cardview:${Versions.androidX}"
     const val androidKtx = "androidx.core:core-ktx:${Versions.androidKtxCore}"
     const val groupie = "com.xwray:groupie:${Versions.groupie}"
