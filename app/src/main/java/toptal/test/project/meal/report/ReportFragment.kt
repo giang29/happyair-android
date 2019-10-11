@@ -35,6 +35,7 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
         AnyChart.cartesian()
             .apply {
                 xScroller(true)
+                animation(true)
             }
     }
 
@@ -114,7 +115,17 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
                     ValueDataEntry(formatDate(viewState.reportListModel.groupBy, it.collectedTime), it.rating)
                 }
 
+                val max = reports.map { it.value }.max() ?: 0f
                 cartesian.column(columnData).name(viewState.reportListModel.type.toString())
+                    .fill(
+                        "function() {" +
+                                "var max = ${max};\n" +
+                                "if (this.value > max*4/5 + max/5) return '#f56566';\n" +
+                                "if (this.value > max*3/5 + max/5) return 'orange';\n" +
+                                "if (this.value > max*2/5 + max/5) return 'yellow';\n" +
+                                "return '#7dc206';}"
+                    )
+                    .legendItem().enabled(false)
 
                 val scalesLinear = Linear.instantiate()
                 scalesLinear.minimum(1.0f)
