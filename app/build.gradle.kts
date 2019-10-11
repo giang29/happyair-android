@@ -36,6 +36,7 @@ dependencies {
     implementation(project(":exceptions"))
     implementation(project(":injection"))
     implementation(project(":presentation"))
+    implementation(Dependencies.anyChart)
     implementation(Dependencies.kotlinStdLib)
     implementation(Dependencies.appCompat)
     implementation(Dependencies.kodein)

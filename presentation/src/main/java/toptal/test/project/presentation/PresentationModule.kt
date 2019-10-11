@@ -5,7 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 import org.kodein.di.Kodein
 import org.kodein.di.direct
 import org.kodein.di.generic.bind
+import org.kodein.di.generic.instance
+import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
+import toptal.test.project.presentation.report.ReportViewModel
 
 private inline fun <reified T : ViewModel> Kodein.Builder.bindViewModel(
     overrides: Boolean? = null
@@ -17,5 +20,9 @@ val presentationModule: Kodein.Module = Kodein.Module("PresentationModule") {
 
     bind<ViewModelProvider.Factory>() with singleton {
         ViewModelFactory(kodein.direct)
+    }
+
+    bindViewModel<ReportViewModel>() with provider {
+        ReportViewModel(instance())
     }
 }

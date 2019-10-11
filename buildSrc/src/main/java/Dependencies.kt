@@ -43,10 +43,12 @@ object Versions {
     // Groupie
     const val groupie = "2.5.1"
 
+    const val anyChart = "1.1.2"
 }
 
 object Dependencies {
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.androidGradlePlugin}"
+    const val anyChart = "com.github.AnyChart:AnyChart-Android:${Versions.anyChart}"
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlinStdLib}"
     const val kotlinAndroidExtensions =
         "org.jetbrains.kotlin:kotlin-android-extensions:${Versions.kotlinStdLib}"
