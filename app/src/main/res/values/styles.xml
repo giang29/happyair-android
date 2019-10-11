@@ -22,4 +22,11 @@
         <item name="itemTextColor">@color/bottom_nav_item_color</item>
         <item name="itemHorizontalTranslationEnabled">true</item>
     </style>
+
+
+    <style name="Widget.AppTheme.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/selector_chip_background</item>
+        <item name="android:textColor">@color/selector_chip_text</item>
+        <item name="android:elevation">4dp</item>
+    </style>
 </resources>
