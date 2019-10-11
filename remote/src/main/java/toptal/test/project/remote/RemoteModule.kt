@@ -13,8 +13,10 @@ import retrofit2.CallAdapter
 import retrofit2.converter.moshi.MoshiConverterFactory
 import toptal.test.project.common.TAG_BOOLEAN_DEBUG
 import toptal.test.project.data.feedback.FeedbackRemoteDataStore
+import toptal.test.project.data.report.ReportRemoteDataStore
 import toptal.test.project.remote.common.AQRxJava2CallAdapterFactory
 import toptal.test.project.remote.feedback.FeedbackRemoteDataStoreImpl
+import toptal.test.project.remote.report.ReportRemoteDataStoreImpl
 import java.util.concurrent.TimeUnit
 
 internal const val TAG_OKHTTPCLIENT_AUTHENTICATION = "OKHTTPCLIENT_AUTHENTICATION"
@@ -69,5 +71,9 @@ val remoteModule = Kodein.Module("RemoteModule") {
 
     bind<FeedbackRemoteDataStore>() with provider {
         FeedbackRemoteDataStoreImpl()
+    }
+
+    bind<ReportRemoteDataStore>() with provider {
+        ReportRemoteDataStoreImpl()
     }
 }
