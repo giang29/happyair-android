@@ -27,7 +27,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * The request could not be understood by the server due to malformed syntax. The client SHOULD
      * NOT repeat the request without modifications.
      */
-    class BadRequest(response: Response) : ClientError(getMessage(response))
+    class BadRequest(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 401 Unauthorized
@@ -43,14 +43,14 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * that entity might include relevant diagnostic information. HTTP access authentication is
      * explained in "HTTP Authentication: Basic and Digest Access Authentication" [[43]](https://www.w3.org/Protocols/rfc2616/rfc2616-sec17.html).
      */
-    class Unauthorized(response: Response) : ClientError(getMessage(response))
+    class Unauthorized(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 402 Payment Required
      *
      * This code is reserved for future use.
      */
-    class PaymentRequired(response: Response) : ClientError(getMessage(response))
+    class PaymentRequired(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 403 Forbidden
@@ -61,7 +61,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * the refusal in the entity. If the server does not wish to make this information available to
      * the client, the status code 404 (Not Found) can be used instead.
      */
-    class Forbidden(response: Response) : ClientError(getMessage(response))
+    class Forbidden(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 404 Not Found
@@ -73,7 +73,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * the server does not wish to reveal exactly why the request has been refused, or when no other
      * response is applicable.
      */
-    class NotFound(response: Response) : ClientError(getMessage(response))
+    class NotFound(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 405 Method Not Allowed
@@ -82,7 +82,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * Request-URI. The response MUST include an Allow header containing a list of valid methods for
      * the requested resource.
      */
-    class MethodNotAllowed(response: Response) : ClientError(getMessage(response))
+    class MethodNotAllowed(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 406 Not Acceptable
@@ -103,7 +103,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * If the response could be unacceptable, a user agent SHOULD temporarily stop receipt of more
      * data and query the user for a decision on further actions.
      */
-    class NotAcceptable(response: Response) : ClientError(getMessage(response))
+    class NotAcceptable(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 407 Proxy Authentication Required
@@ -116,7 +116,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * HTTP access authentication is explained in "HTTP Authentication: Basic and Digest Access
      * Authentication" [[43]](https://www.w3.org/Protocols/rfc2616/rfc2616-sec17.html).
      */
-    class ProxyAuthenticationRequired(response: Response) : ClientError(getMessage(response))
+    class ProxyAuthenticationRequired(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 408 Request Timeout
@@ -144,7 +144,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * contain a list of the differences between the two versions in a format defined by the response
      * Content-Type.
      */
-    class Conflict(response: Response) : ClientError(getMessage(response))
+    class Conflict(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 410 Gone
@@ -162,7 +162,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * is not necessary to mark all permanently unavailable resources as "gone" or to keep the mark
      * for any length of time -- that is left to the discretion of the server owner.
      */
-    class Gone(response: Response) : ClientError(getMessage(response))
+    class Gone(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 411 Length Required
@@ -171,7 +171,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * repeat the request if it adds a valid Content-Length header field containing the length of the
      * message-body in the request message.
      */
-    class LengthRequired(response: Response) : ClientError(getMessage(response))
+    class LengthRequired(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 412 Precondition Failed
@@ -181,7 +181,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * current resource metainformation (header field data) and thus prevent the requested method from
      * being applied to a resource other than the one intended.
      */
-    class PreconditionFailed(response: Response) : ClientError(getMessage(response))
+    class PreconditionFailed(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 413 Request Entity Too Large
@@ -193,7 +193,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * If the condition is temporary, the server SHOULD include a Retry- After header field to
      * indicate that it is temporary and after what time the client MAY try again.
      */
-    class RequestEntityTooLarge(response: Response) : ClientError(getMessage(response))
+    class RequestEntityTooLarge(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 414 Request-URI Too Long
@@ -206,7 +206,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * to exploit security holes present in some servers using fixed-length buffers for reading or
      * manipulating the Request-URI.
      */
-    class RequestUriTooLong(response: Response) : ClientError(getMessage(response))
+    class RequestUriTooLong(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 415 Unsupported Media Type
@@ -214,7 +214,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * The server is refusing to service the request because the entity of the request is in a format
      * not supported by the requested resource for the requested method.
      */
-    class UnsupportedMediaType(response: Response) : ClientError(getMessage(response))
+    class UnsupportedMediaType(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 416 Requested Range Not Satisfiable
@@ -231,7 +231,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * (see section [14.16](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.16)). This
      * response MUST NOT use the multipart/byteranges content- type.
      */
-    class RequestedRangeNotSatisfiable(response: Response) : ClientError(getMessage(response))
+    class RequestedRangeNotSatisfiable(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 417 Expectation Failed
@@ -240,7 +240,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * could not be met by this server, or, if the server is a proxy, the server has unambiguous
      * evidence that the request could not be met by the next-hop server.
      */
-    class ExpectationFailed(response: Response) : ClientError(getMessage(response))
+    class ExpectationFailed(response: Response?) : ClientError(getMessage(response))
 
     /**
      * 422 Validation exception.
@@ -248,7 +248,7 @@ sealed class ClientError(message: String) : RuntimeException(message) {
      * Custom exception used in Sideline Load API
      *
      */
-    class ValidationFailed(response: Response) : ClientError(getMessage(response))
+    class ValidationFailed(response: Response?) : ClientError(getMessage(response))
 }
 
 /**
@@ -266,7 +266,7 @@ sealed class ServerError(message: String) : RuntimeException(message) {
      *
      * The server encountered an unexpected condition which prevented it from fulfilling the request.
      */
-    class InternalServerError(response: Response) : ServerError(getMessage(response))
+    class InternalServerError(response: Response?) : ServerError(getMessage(response))
 
     /**
      * 501 Not Implemented
@@ -275,7 +275,7 @@ sealed class ServerError(message: String) : RuntimeException(message) {
      * appropriate response when the server does not recognize the request method and is not capable
      * of supporting it for any resource.
      */
-    class NotImplemented(response: Response) : ServerError(getMessage(response))
+    class NotImplemented(response: Response?) : ServerError(getMessage(response))
 
     /**
      * 502 Bad Gateway
@@ -283,7 +283,7 @@ sealed class ServerError(message: String) : RuntimeException(message) {
      * The server, while acting as a gateway or proxy, received an invalid response from the upstream
      * server it accessed in attempting to fulfill the request.
      */
-    class BadGateway(response: Response) : ServerError(getMessage(response))
+    class BadGateway(response: Response?) : ServerError(getMessage(response))
 
     /**
      * 503 Service Unavailable
@@ -298,7 +298,7 @@ sealed class ServerError(message: String) : RuntimeException(message) {
      *   server must use it when becoming overloaded. Some servers may wish
      *   to simply refuse the connection.
      */
-    class ServiceUnavailable(response: Response) : ServerError(getMessage(response))
+    class ServiceUnavailable(response: Response?) : ServerError(getMessage(response))
 
     /**
      * 504 Gateway Timeout
@@ -310,7 +310,7 @@ sealed class ServerError(message: String) : RuntimeException(message) {
      *   Note: Note to implementors: some deployed proxies are known to
      *   return 400 or 500 when DNS lookups time out.
      */
-    class GatewayTimeOut(response: Response) : ServerError(getMessage(response))
+    class GatewayTimeOut(response: Response?) : ServerError(getMessage(response))
 
     /**
      * 505 HTTP Version Not Supported
@@ -321,13 +321,13 @@ sealed class ServerError(message: String) : RuntimeException(message) {
      * other than with this error message. The response SHOULD contain an entity describing why that
      * version is not supported and what other protocols are supported by that server.
      */
-    class HttpVersionNotSupported(response: Response) : ServerError(getMessage(response))
+    class HttpVersionNotSupported(response: Response?) : ServerError(getMessage(response))
 }
 
 /**
  * Unknown network error
  */
-class UnknownNetworkError(response: Response) : RuntimeException(getMessage(response))
+class UnknownNetworkError(response: Response?) : RuntimeException(getMessage(response))
 
 /**
  * Unknown server error (i.e. Server returned an error with 200)
@@ -341,7 +341,8 @@ class NoConnectionError(message: String) : RuntimeException(message)
 
 class MissingApiKeyExcpetion : RuntimeException()
 
-private fun getMessage(response: Response): String {
-    checkNotNull(response) { "response == null" }
-    return "Status code: ${response.code()} || Url: ${response.request().url()} || Message: ${response.message()}"
+private fun getMessage(response: Response?): String {
+    return response?.let {
+        "Status code: ${it.code()} || Url: ${it.request().url()} || Message: ${it.message()}"
+    } ?: "Unknown"
 }

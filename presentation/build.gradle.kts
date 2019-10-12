@@ -22,9 +22,10 @@ android {
 // IMPORTANT!  Enables view caching in viewholders.
 // See: https://github.com/Kotlin/KEEP/blob/master/proposals/android-extensions-entity-caching.md
 androidExtensions {
-    configure(delegateClosureOf<AndroidExtensionsExtension> {
+    fun AndroidExtensionsExtension.configure() {
         isExperimental = true
-    })
+    }
+    configure(AndroidExtensionsExtension::configure)
 }
 
 dependencies {

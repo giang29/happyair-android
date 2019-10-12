@@ -56,7 +56,7 @@ internal abstract class StatelessBaseDialogFragment
         super.onDestroyView()
     }
 
-    override fun onDismiss(dialog: DialogInterface?) {
+    override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         onDismissListener?.run {
             onDismiss(dialog)

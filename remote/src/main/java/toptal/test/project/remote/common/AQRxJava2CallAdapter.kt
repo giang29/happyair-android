@@ -96,8 +96,8 @@ internal class AQRxJava2CallAdapter<R>(
     /**
      * Parses the provided [Throwable] into another exception applying the provided converter logic
      */
-    private inline fun Throwable.parse(converter: (Int, Response) -> Exception): Throwable {
-        return (this as? HttpException)?.let { converter(code(), response().raw()) } ?: this
+    private inline fun Throwable.parse(converter: (Int, Response?) -> Exception): Throwable {
+        return (this as? HttpException)?.let { converter(code(), response()?.raw()) } ?: this
     }
 
 }

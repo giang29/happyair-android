@@ -1,47 +1,49 @@
 object Versions {
     // Android gradle plugin
-    const val androidGradlePlugin = "3.5.0"
+    const val androidGradlePlugin = "3.5.1"
 
     // Kotlin stdlib
-    const val kotlinStdLib = "1.3.11"
+    const val kotlinStdLib = "1.3.50"
 
     // AndroidX
-    const val androidX = "1.0.0"
+    const val androidX = "1.1.0"
+
+    const val androidMaterial = "1.0.0"
 
     // Retrofit
-    const val retrofit = "2.5.0"
+    const val retrofit = "2.6.2"
 
     // OkHttp
-    const val okHttp = "3.11.0"
+    const val okHttp = "3.14.2"
 
     // Moshi
     const val moshi = "1.8.0"
 
     // Kodein
-    const val kodein = "5.3.0"
+    const val kodein = "6.2.1"
 
     // Rx
     const val rxJava = "2.1.12"
-    const val rxAndroid = "2.0.2"
-    const val rxRelay = "2.0.0"
-    const val rxBinding = "3.0.0-alpha1"
-    const val rxKotlin = "2.2.0"
-    const val rxReplayingShare = "2.0.1"
+    const val rxAndroid = "2.1.1"
+    const val rxRelay = "2.1.1"
+    const val rxBinding = "3.0.0"
+    const val rxKotlin = "2.4.0"
+    const val rxReplayingShare = "2.2.0"
 
     // ConstraintLayout
     const val constraintLayout = "1.1.3"
 
     // Android Architecture Components
-    const val lifecycle = "2.0.0"
+    const val lifecycle = "2.1.0"
 
     // koptional
-    const val koptional = "1.3.0"
+    const val koptional = "1.6.0"
 
     // Android KTX
-    const val androidKtxCore = "1.0.0-beta01"
+    const val androidKtxCore = "1.1.0"
 
     // Groupie
-    const val groupie = "2.5.1"
+    const val groupie = "2.7.0"
 
     const val anyChart = "1.1.2"
 }
@@ -69,15 +71,15 @@ object Dependencies {
     const val livecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
     const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
     const val rxRelay = "com.jakewharton.rxrelay2:rxrelay:${Versions.rxRelay}"
-    const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.androidX}"
-    const val design = "com.google.android.material:material:${Versions.androidX}"
+    const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.androidMaterial}"
+    const val design = "com.google.android.material:material:${Versions.androidMaterial}"
     const val rxBindingPlatform =
         "com.jakewharton.rxbinding3:rxbinding:${Versions.rxBinding}"
     const val rxBindingAppCompat =
         "com.jakewharton.rxbinding3:rxbinding-appcompat:${Versions.rxBinding}"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxKotlin}"
     const val koptional = "com.gojuno.koptional:koptional:${Versions.koptional}"
-    const val cardView = "androidx.cardview:cardview:${Versions.androidX}"
+    const val cardView = "androidx.cardview:cardview:${Versions.androidMaterial}"
     const val androidKtx = "androidx.core:core-ktx:${Versions.androidKtxCore}"
     const val groupie = "com.xwray:groupie:${Versions.groupie}"
     const val groupieKotlinAndroidExtensions =

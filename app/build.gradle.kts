@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import org.jetbrains.kotlin.gradle.internal.AndroidExtensionsExtension
 
 plugins {
@@ -21,14 +22,20 @@ android {
         sourceCompatibility = AndroidSettings.sourceCompatibility
         targetCompatibility = AndroidSettings.targetCompatibility
     }
+
+    kotlinOptions {
+        this as KotlinJvmOptions
+        jvmTarget = "1.8"
+    }
 }
 
 // IMPORTANT!  Enables view caching in viewholders.
 // See: https://github.com/Kotlin/KEEP/blob/master/proposals/android-extensions-entity-caching.md
 androidExtensions {
-    configure(delegateClosureOf<AndroidExtensionsExtension> {
+    fun AndroidExtensionsExtension.configure() {
         isExperimental = true
-    })
+    }
+    configure(AndroidExtensionsExtension::configure)
 }
 
 dependencies {

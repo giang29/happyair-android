@@ -1,4 +1,10 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins { kotlin("jvm") }
+
+val compileKotlin: KotlinCompile by tasks
+
+compileKotlin.kotlinOptions.jvmTarget = "1.8"
 
 dependencies {
     implementation(project(":common"))
