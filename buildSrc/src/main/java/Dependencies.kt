@@ -46,6 +46,8 @@ object Versions {
     const val groupie = "2.7.0"
 
     const val anyChart = "1.1.2"
+
+    const val fragmentNavigation = "2.1.0"
 }
 
 object Dependencies {
@@ -86,4 +88,8 @@ object Dependencies {
         "com.xwray:groupie-kotlin-android-extensions:${Versions.groupie}"
     const val rxReplayingShare =
         "com.jakewharton.rx2:replaying-share-kotlin:${Versions.rxReplayingShare}"
+    const val navigationFragment =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.fragmentNavigation}"
+    const val navigationUi =
+        "androidx.navigation:navigation-ui-ktx:${Versions.fragmentNavigation}"
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ng_home"
+    app:startDestination="@id/m_home_navigation_report">
+
+    <fragment
+        android:id="@+id/m_home_navigation_report"
+        android:name="toptal.test.project.meal.report.ReportFragment"
+        android:label="f_report"
+        tools:layout="@layout/f_report" />
+
+    <fragment android:id="@+id/m_home_navigation_ratings" />
+</navigation>

@@ -61,4 +61,6 @@ dependencies {
     implementation(Dependencies.cardView)
     implementation(Dependencies.groupie)
     implementation(Dependencies.groupieKotlinAndroidExtensions)
+    implementation(Dependencies.navigationFragment)
+    implementation(Dependencies.navigationUi)
 }
