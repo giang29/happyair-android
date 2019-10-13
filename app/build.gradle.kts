@@ -63,4 +63,5 @@ dependencies {
     implementation(Dependencies.groupieKotlinAndroidExtensions)
     implementation(Dependencies.navigationFragment)
     implementation(Dependencies.navigationUi)
+    implementation(Dependencies.androidToggleSwitch)
 }

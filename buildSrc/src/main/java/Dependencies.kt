@@ -48,6 +48,8 @@ object Versions {
     const val anyChart = "1.1.2"
 
     const val fragmentNavigation = "2.1.0"
+
+    const val androidToggleSwitch = "2.0.3"
 }
 
 object Dependencies {
@@ -92,4 +94,5 @@ object Dependencies {
         "androidx.navigation:navigation-fragment-ktx:${Versions.fragmentNavigation}"
     const val navigationUi =
         "androidx.navigation:navigation-ui-ktx:${Versions.fragmentNavigation}"
+    const val androidToggleSwitch = "com.llollox:androidtoggleswitch:${Versions.androidToggleSwitch}"
 }

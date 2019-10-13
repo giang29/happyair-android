@@ -35,7 +35,7 @@ subprojects {
     configurations.all {
         resolutionStrategy {
             eachDependency {
-                if (requested.group == "org.jetbrains.kotlin" && requested.name.startsWith("kotlin-stdlib")) {
+                if (requested.group == "org.jetbrains.kotlin" && requested.name.startsWith("kotlin-stdlib-jdk")) {
                     useVersion(Versions.kotlinStdLib)
                 }
                 if (requested.group == "com.squareup.okhttp3") useVersion(Versions.okHttp)

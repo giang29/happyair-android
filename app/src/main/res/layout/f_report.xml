@@ -7,7 +7,7 @@
     tools:context=".report.ReportFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/f_report_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
@@ -16,36 +16,62 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Spinner
-            android:id="@+id/room_spinner"
-            android:spinnerMode="dropdown"
-            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            android:id="@+id/f_report_room_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/white"
+            android:spinnerMode="dropdown"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
             tools:listitem="@layout/i_spinner" />
     </androidx.appcompat.widget.Toolbar>
 
+    <com.llollox.androidtoggleswitch.widgets.ToggleSwitch
+        android:id="@+id/f_report_toggle_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        app:checkedBackgroundColor="@color/colorPrimary"
+        app:checkedTextColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/f_report_toolbar"
+        app:separatorVisible="false"
+        app:textToggleLeft="Daily"
+        app:textToggleCenter="Weekly"
+        app:textToggleRight="Monthly"
+        app:uncheckedBackgroundColor="@android:color/white"
+        app:uncheckedTextColor="@color/colorPrimary" />
+
+    <com.anychart.AnyChartView
+        android:id="@+id/f_report_graph"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_default"
+        app:layout_constraintBottom_toTopOf="@+id/f_report_horizontal_scroll_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/f_report_toggle_switch" />
+
     <HorizontalScrollView
-        android:id="@+id/horizontal_scroll_view"
+        android:id="@+id/f_report_horizontal_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:padding="@dimen/margin_default"
         android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:ignore="RtlSymmetry">
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_data_type"
+            android:id="@+id/f_report_chip_group_data_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
             android:clipChildren="false"
-            app:singleLine="true"
+            android:clipToPadding="false"
             app:chipSpacing="@dimen/margin_default"
+            app:singleLine="true"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
@@ -111,13 +137,22 @@
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
 
-    <com.anychart.AnyChartView
-        android:id="@+id/graph"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.5"
+    <TextView
+        android:id="@+id/textView"
+        android:background="@drawable/bg_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:drawableStart="@drawable/ic_calendar"
+        android:drawablePadding="@dimen/margin_half"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        app:layout_constraintHorizontal_bias="1"
+        android:padding="@dimen/margin_half"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/f_report_toggle_switch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_scroll_view" />
-
+        app:layout_constraintStart_toEndOf="@+id/f_report_toggle_switch"
+        app:layout_constraintTop_toTopOf="@+id/f_report_toggle_switch"
+        tools:text="1/10 - 23/10" />
 </androidx.constraintlayout.widget.ConstraintLayout>
