@@ -121,7 +121,7 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
                             selectedDatatype,
                             Calendar.getInstance().apply { timeInMillis = System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000 },
                             Calendar.getInstance(),
-                            GroupType.DAILY
+                            togglePositionToGroupType(f_report_toggle_switch.checkedPosition ?: 0)
                         )
                     }
                 }
