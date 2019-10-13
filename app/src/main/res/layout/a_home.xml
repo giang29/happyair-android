@@ -8,5 +8,5 @@
     android:layout_height="match_parent"
     app:defaultNavHost="true"
     app:navGraph="@navigation/ng_a_home"
-    tools:context=".report.HomeActivity"
+    tools:context=".home.HomeActivity"
     tools:layout="@layout/f_home" />

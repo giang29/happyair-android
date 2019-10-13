@@ -1,4 +1,4 @@
-package toptal.test.project.meal.report
+package toptal.test.project.meal.home
 
 import androidx.navigation.findNavController
 import toptal.test.project.meal.R

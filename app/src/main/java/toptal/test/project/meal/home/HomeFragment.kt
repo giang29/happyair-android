@@ -1,4 +1,4 @@
-package toptal.test.project.meal.report
+package toptal.test.project.meal.home
 
 import android.os.Bundle
 import android.view.View
