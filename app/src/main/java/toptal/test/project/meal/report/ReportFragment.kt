@@ -20,11 +20,13 @@ import java.util.*
 import com.anychart.enums.*
 import com.anychart.graphics.vector.StrokeLineCap
 import com.anychart.graphics.vector.StrokeLineJoin
-import java.text.SimpleDateFormat
 import com.anychart.scales.Linear
 import com.google.android.material.chip.Chip
 import com.jakewharton.rxbinding3.widget.checkedChanges
 import com.llollox.androidtoggleswitch.widgets.ToggleSwitch
+import toptal.test.project.common.fullDateFormat
+import toptal.test.project.common.shortDateFormat
+import toptal.test.project.common.weekFormat
 
 
 internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>() {
@@ -76,16 +78,16 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
             }
         }
 
-        f_report_chip_group_data_type.forEach { view ->
-            (view as Chip).checkedChanges()
+        f_report_chip_group_data_type.forEach { v ->
+            (v as Chip).checkedChanges()
                 .subscribe {
-                    view.isClickable = !it
+                    v.isClickable = !it
 
                     if (it) {
-                        selectedDatatype = when (view.text.toString().toUpperCase(Locale.ROOT)) {
+                        selectedDatatype = when (v.text.toString().toUpperCase(Locale.ROOT)) {
                             AirDataType.CO2.toString() -> AirDataType.CO2
                             AirDataType.TEMPERATURE.toString() -> AirDataType.TEMPERATURE
-                            else -> throw IllegalArgumentException(view.text.toString())
+                            else -> throw IllegalArgumentException(v.text.toString())
                         }
                         (f_report_room_spinner.selectedItem as? String)?.run {
                             viewModel.loadReport(
@@ -182,14 +184,10 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
 
     private fun formatDate(groupBy: GroupType, calendar: Calendar): String {
         return when (groupBy) {
-            GroupType.DAILY -> SimpleDateFormat("MMM d yy").format(calendar.time)
-            GroupType.MONTHLY -> SimpleDateFormat("MMM yy").format(calendar.time)
-            GroupType.WEEKLY -> "W${SimpleDateFormat("w yy").format(calendar.time)}"
+            GroupType.DAILY -> fullDateFormat.format(calendar.time)
+            GroupType.MONTHLY -> shortDateFormat.format(calendar.time)
+            GroupType.WEEKLY -> "W${weekFormat.format(calendar.time)}"
             GroupType.UNKNOWN -> throw IllegalArgumentException()
         }
-    }
-
-    companion object {
-        fun newInstance() = ReportFragment()
     }
 }
