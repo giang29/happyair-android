@@ -8,8 +8,10 @@ internal fun generateFeedbackData(rating: Rating? = null): List<FeedbackModel> {
     val endTime = 1570476819985L
     val startTime = endTime - 3 * 24 * 60 * 60 * 1000
 
+    val possibleRating = Rating.values().filter { it != Rating.UNKNOWN }
     return (0..200).map {
-        val randomizedRating = rating ?: Rating.values()[Random.nextInt(Rating.values().size)]
+        val randomizedRating = rating
+            ?: possibleRating[Random.nextInt(possibleRating.size)]
         val timestamp = (Random.nextLong() % (endTime - startTime)) + startTime
 
         FeedbackModel(randomizedRating, timestamp)
