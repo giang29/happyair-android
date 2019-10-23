@@ -8,13 +8,13 @@
     tools:context=".feedback.FeedbackFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/f_report_toolbar"
+        android:id="@+id/f_feedback_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent">
 
         <Spinner
-            android:id="@+id/f_report_room_spinner"
+            android:id="@+id/f_feedback_room_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/white"
@@ -24,7 +24,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <HorizontalScrollView
-        android:id="@+id/f_report_horizontal_scroll_view"
+        android:id="@+id/f_feedback_horizontal_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipChildren="false"
@@ -37,7 +37,7 @@
         tools:ignore="RtlSymmetry">
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/f_report_chip_group_data_type"
+            android:id="@+id/f_feedback_chip_group_data_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clipChildren="false"
@@ -49,6 +49,7 @@
     </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/f_feedback_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
