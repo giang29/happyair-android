@@ -11,6 +11,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.f_feedback.*
 import toptal.test.project.common.model.Rating
+import toptal.test.project.common.model.RoomModel
 import toptal.test.project.meal.R
 import toptal.test.project.meal.base.BaseFragment
 import toptal.test.project.meal.report.adapter.RoomAdapter
@@ -40,13 +41,13 @@ internal class FeedbackFragment : BaseFragment<FeedbackViewModel, FeedbackViewSt
                         .subscribe {
                             if (it) {
                                 selectedRating = rating
-                                (f_feedback_room_spinner.selectedItem as? String)?.run {
-                                    viewModel.loadFeedback(this, rating)
+                                (f_feedback_room_spinner.selectedItem as? RoomModel)?.run {
+                                    viewModel.loadFeedback(id, rating)
                                 }
                             } else if (selectedRating == rating) {
                                 selectedRating = null
-                                (f_feedback_room_spinner.selectedItem as? String)?.run {
-                                    viewModel.loadFeedback(this, null)
+                                (f_feedback_room_spinner.selectedItem as? RoomModel)?.run {
+                                    viewModel.loadFeedback(id, null)
                                 }
                             }
                         }
@@ -58,7 +59,7 @@ internal class FeedbackFragment : BaseFragment<FeedbackViewModel, FeedbackViewSt
     }
 
     override fun onStateChanged(viewState: FeedbackViewState) {
-        viewState.rooms.getContentIfNotHandledOrReturnNull()?.run {
+        viewState.rooms?.getContentIfNotHandledOrReturnNull()?.run {
             f_feedback_room_spinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -69,10 +70,10 @@ internal class FeedbackFragment : BaseFragment<FeedbackViewModel, FeedbackViewSt
                         position: Int,
                         id: Long
                     ) {
-                        viewModel.loadFeedback(get(position), selectedRating)
+                        viewModel.loadFeedback(get(position).id, selectedRating)
                     }
                 }
-            f_feedback_room_spinner.adapter = RoomAdapter(requireContext(), this)
+            f_feedback_room_spinner.adapter = RoomAdapter(requireContext(),  this)
             f_feedback_room_spinner.setSelection(0)
         }
 

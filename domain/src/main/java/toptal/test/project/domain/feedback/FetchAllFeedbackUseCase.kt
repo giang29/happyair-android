@@ -6,7 +6,7 @@ import toptal.test.project.common.model.FeedbackModel
 import toptal.test.project.common.model.Rating
 
 interface FetchAllFeedbackUseCase {
-    fun execute(rating: Rating? = null): Single<List<FeedbackModel>>
+    fun execute(room: String, rating: Rating? = null): Single<List<FeedbackModel>>
 }
 
 internal class FetchAllFeedbackUseCaseImpl(
@@ -14,8 +14,8 @@ internal class FetchAllFeedbackUseCaseImpl(
     private val executionThread: Scheduler,
     private val postExecutionThread: Scheduler
 ) : FetchAllFeedbackUseCase {
-    override fun execute(rating: Rating?): Single<List<FeedbackModel>> {
-        return feedbackRepository.fetchAllFeedbacks(rating)
+    override fun execute(room: String, rating: Rating?): Single<List<FeedbackModel>> {
+        return feedbackRepository.fetchAllFeedbacks(room, rating)
             .subscribeOn(executionThread)
             .observeOn(postExecutionThread)
     }

@@ -5,7 +5,6 @@ import toptal.test.project.common.model.GroupType
 import toptal.test.project.common.model.ReportListModel
 import toptal.test.project.common.model.ReportModel
 import java.lang.IllegalArgumentException
-import java.time.temporal.ChronoUnit
 import java.util.*
 import java.util.Calendar.DATE
 import java.util.Calendar.MONTH

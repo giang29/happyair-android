@@ -24,10 +24,10 @@ val presentationModule: Kodein.Module = Kodein.Module("PresentationModule") {
     }
 
     bindViewModel<ReportViewModel>() with provider {
-        ReportViewModel(instance())
+        ReportViewModel(instance(), instance())
     }
 
     bindViewModel<FeedbackViewModel>() with provider {
-        FeedbackViewModel(instance())
+        FeedbackViewModel(instance(), instance())
     }
 }

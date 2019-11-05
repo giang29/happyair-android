@@ -28,4 +28,6 @@ dependencies {
     implementation(Dependencies.kotlinStdLib)
     implementation(Dependencies.rxKotlin)
     implementation(Dependencies.rxAndroid)
+    implementation(Dependencies.rxRelay)
+    implementation(Dependencies.koptional)
 }

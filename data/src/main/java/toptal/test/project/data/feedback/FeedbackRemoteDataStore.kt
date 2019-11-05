@@ -6,5 +6,5 @@ import toptal.test.project.common.model.Rating
 
 interface FeedbackRemoteDataStore {
 
-    fun fetchAllFeedback(rating: Rating?): Single<List<FeedbackModel>>
+    fun fetchAllFeedback(room: String, rating: Rating?): Single<List<FeedbackModel>>
 }

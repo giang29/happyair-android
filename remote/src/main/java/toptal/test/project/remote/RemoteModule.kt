@@ -10,35 +10,33 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 import retrofit2.CallAdapter
+import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import toptal.test.project.common.TAG_BOOLEAN_DEBUG
 import toptal.test.project.data.feedback.FeedbackRemoteDataStore
 import toptal.test.project.data.report.ReportRemoteDataStore
+import toptal.test.project.data.room.RoomRemote
 import toptal.test.project.remote.common.AQRxJava2CallAdapterFactory
 import toptal.test.project.remote.feedback.FeedbackRemoteDataStoreImpl
 import toptal.test.project.remote.report.ReportRemoteDataStoreImpl
+import toptal.test.project.remote.room.RoomRemoteImpl
 import java.util.concurrent.TimeUnit
 
-internal const val TAG_OKHTTPCLIENT_AUTHENTICATION = "OKHTTPCLIENT_AUTHENTICATION"
 internal const val TAG_INTERCEPTOR_LOGGING = "INTERCEPTOR_LOGGING"
-internal const val TAG_INTERCEPTOR_AUTHENTICATION = "INTERCEPTOR_AUTHENTICATION"
-internal const val TAG_OKHTTPCLIENT_DEFAULT = "OKHTTPCLIENT_DEFAULT"
 
 val remoteModule = Kodein.Module("RemoteModule") {
-
-    bind<OkHttpClient>(tag = TAG_OKHTTPCLIENT_AUTHENTICATION) with singleton {
-        OkHttpClient.Builder()
-            .addInterceptor(instance(tag = TAG_INTERCEPTOR_LOGGING))
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
+    bind<HappyAirGateway>() with singleton {
+        Retrofit.Builder()
+            .addCallAdapterFactory(instance())
+            .addConverterFactory(instance())
+            .baseUrl("https://happyair.herokuapp.com/")
+            .client(instance())
             .build()
+            .create(HappyAirGateway::class.java)
     }
 
-    bind<OkHttpClient>(tag = TAG_OKHTTPCLIENT_DEFAULT) with singleton {
+    bind<OkHttpClient>() with singleton {
         OkHttpClient.Builder()
-            .authenticator(instance())
-            .addInterceptor(instance(tag = TAG_INTERCEPTOR_AUTHENTICATION))
             .addInterceptor(instance(tag = TAG_INTERCEPTOR_LOGGING))
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
@@ -70,10 +68,14 @@ val remoteModule = Kodein.Module("RemoteModule") {
     }
 
     bind<FeedbackRemoteDataStore>() with provider {
-        FeedbackRemoteDataStoreImpl()
+        FeedbackRemoteDataStoreImpl(instance())
     }
 
     bind<ReportRemoteDataStore>() with provider {
         ReportRemoteDataStoreImpl()
+    }
+
+    bind<RoomRemote>() with provider {
+        RoomRemoteImpl(instance())
     }
 }

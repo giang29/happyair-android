@@ -8,7 +8,7 @@ import toptal.test.project.domain.feedback.FeedbackRepository
 internal class FeedbackRepositoryImpl(
     private val feedbackRemoteDataStore: FeedbackRemoteDataStore
 ): FeedbackRepository {
-    override fun fetchAllFeedbacks(rating: Rating?): Single<List<FeedbackModel>> {
-        return feedbackRemoteDataStore.fetchAllFeedback(rating)
+    override fun fetchAllFeedbacks(room: String, rating: Rating?): Single<List<FeedbackModel>> {
+        return feedbackRemoteDataStore.fetchAllFeedback(room, rating)
     }
 }

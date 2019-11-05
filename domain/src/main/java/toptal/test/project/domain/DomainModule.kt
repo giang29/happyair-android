@@ -11,6 +11,8 @@ import toptal.test.project.domain.feedback.FetchAllFeedbackUseCase
 import toptal.test.project.domain.feedback.FetchAllFeedbackUseCaseImpl
 import toptal.test.project.domain.report.FetchReportForRoomUseCase
 import toptal.test.project.domain.report.FetchReportForRoomUseCaseImpl
+import toptal.test.project.domain.room.FetchRoomUseCase
+import toptal.test.project.domain.room.FetchRoomUseCaseImpl
 
 private const val TAG_SCHEDULER_BACKGROUND = "SCHEDULER_BACKGROUND"
 val domainModule: Kodein.Module = Kodein.Module("DomainModule") {
@@ -29,6 +31,14 @@ val domainModule: Kodein.Module = Kodein.Module("DomainModule") {
 
     bind<FetchReportForRoomUseCase>() with provider {
         FetchReportForRoomUseCaseImpl(
+            instance(),
+            instance(tag = TAG_SCHEDULER_BACKGROUND),
+            instance(tag = TAG_SCHEDULER_POST_EXECTION)
+        )
+    }
+
+    bind<FetchRoomUseCase>() with provider {
+        FetchRoomUseCaseImpl(
             instance(),
             instance(tag = TAG_SCHEDULER_BACKGROUND),
             instance(tag = TAG_SCHEDULER_POST_EXECTION)
