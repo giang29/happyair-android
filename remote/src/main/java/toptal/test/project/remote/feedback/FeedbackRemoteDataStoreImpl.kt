@@ -8,31 +8,38 @@ import toptal.test.project.remote.HappyAirGateway
 
 internal class FeedbackRemoteDataStoreImpl(
     private val happyAirGateway: HappyAirGateway
-): FeedbackRemoteDataStore {
+) : FeedbackRemoteDataStore {
     override fun fetchAllFeedback(room: String, rating: Rating?): Single<List<FeedbackModel>> {
         return happyAirGateway.getFeedbacks(
             room,
-            when(rating) {
-                Rating.TOO_BAD -> 1.99f
-                Rating.BAD -> 2.99f
-                Rating.OK -> 3.99f
-                Rating.GOOD -> 4.99f
+            when (rating) {
+                Rating.TOO_BAD -> 1.49f
+                Rating.BAD -> 2.74f
+                Rating.OK -> 3.74f
+                Rating.GOOD -> 4.24f
                 Rating.VERY_GOOD -> 5f
                 else -> 5f
             }
         ).map {
             it.ratings
-                .filter {ratingRemoteModel ->
-                    ratingRemoteModel.rating in 0f..5f
+                .filter { ratingRemoteModel ->
+                    ratingRemoteModel.rating in when (rating) {
+                        Rating.TOO_BAD -> 0f..1.5f
+                        Rating.BAD -> 1.5f..2.74f
+                        Rating.OK -> 2.75f..3.74f
+                        Rating.GOOD -> 3.75f..4.24f
+                        Rating.VERY_GOOD -> 4.25f..5f
+                        else -> 0f..5f
+                    }
                 }
                 .map { ratingRemoteModel ->
                     FeedbackModel(
-                        when(ratingRemoteModel.rating) {
-                            0f, in 0f to 2f -> Rating.TOO_BAD
-                            in 2f to 3f -> Rating.BAD
-                            in 3f to 4f -> Rating.OK
-                            in 4f to 5f -> Rating.GOOD
-                            5f -> Rating.VERY_GOOD
+                        when (ratingRemoteModel.rating) {
+                            in 0f..1.5f -> Rating.TOO_BAD
+                            in 1.5f to 2.75f -> Rating.BAD
+                            in 2.75f to 3.75f -> Rating.OK
+                            in 3.75f to 4.25f -> Rating.GOOD
+                            in 4.25f to 5f -> Rating.VERY_GOOD
                             else -> Rating.VERY_GOOD
                         },
                         ratingRemoteModel.timestamp
@@ -43,5 +50,6 @@ internal class FeedbackRemoteDataStoreImpl(
 }
 
 data class SemiOpenFloatRange(val from: Float, val to: Float)
+
 infix fun Float.to(to: Float) = SemiOpenFloatRange(this, to)
-operator fun SemiOpenFloatRange.contains(f: Float) = from < f && f <= to
+operator fun SemiOpenFloatRange.contains(f: Float) = from <= f && f < to
