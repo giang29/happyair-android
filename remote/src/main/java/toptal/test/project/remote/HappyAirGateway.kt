@@ -5,7 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import toptal.test.project.common.model.RoomModel
 import toptal.test.project.remote.feedback.RatingsRemoteResponse
-import toptal.test.project.remote.room.RoomsRemoteResponse
 
 interface HappyAirGateway {
     @GET("rooms")
