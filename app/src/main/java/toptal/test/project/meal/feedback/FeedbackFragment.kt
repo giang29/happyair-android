@@ -3,6 +3,7 @@ package toptal.test.project.meal.feedback
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import com.google.android.material.chip.Chip
@@ -29,6 +30,25 @@ internal class FeedbackFragment : BaseFragment<FeedbackViewModel, FeedbackViewSt
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        f_feedback_chip_group_data_type.addView(
+            (layoutInflater.inflate(
+                R.layout.i_chip,
+                f_feedback_chip_group_data_type,
+                false
+            ) as Chip).apply {
+                text = getString(R.string.all)
+                checkedChanges()
+                    .subscribe {
+                        isClickable = !it
+                        if (it) {
+                            selectedRating = null
+                            (f_feedback_room_spinner.selectedItem as? RoomModel)?.run {
+                                viewModel.loadFeedback(id, null)
+                            }
+                        }
+                    }
+            }
+        )
         Rating.values().filter { it != Rating.UNKNOWN }.forEach { rating ->
             f_feedback_chip_group_data_type.addView(
                 (layoutInflater.inflate(
@@ -39,21 +59,18 @@ internal class FeedbackFragment : BaseFragment<FeedbackViewModel, FeedbackViewSt
                     text = rating.toString()
                     checkedChanges()
                         .subscribe {
+                            isClickable = !it
                             if (it) {
                                 selectedRating = rating
                                 (f_feedback_room_spinner.selectedItem as? RoomModel)?.run {
                                     viewModel.loadFeedback(id, rating)
-                                }
-                            } else if (selectedRating == rating) {
-                                selectedRating = null
-                                (f_feedback_room_spinner.selectedItem as? RoomModel)?.run {
-                                    viewModel.loadFeedback(id, null)
                                 }
                             }
                         }
                 }
             )
         }
+        (f_feedback_chip_group_data_type[0] as Chip).isChecked = true
         f_feedback_list.adapter = adapter
         f_feedback_list.layoutManager = LinearLayoutManager(requireContext(), VERTICAL, false)
     }
