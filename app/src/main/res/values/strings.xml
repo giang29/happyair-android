@@ -2,4 +2,5 @@
     <string name="app_name">Air Quality</string>
     <string name="reports">Reports</string>
     <string name="ratings">Ratings</string>
+    <string name="all">All</string>
 </resources>
