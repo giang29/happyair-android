@@ -13,10 +13,10 @@ internal class FeedbackRemoteDataStoreImpl(
         return happyAirGateway.getFeedbacks(
             room,
             when(rating) {
-                Rating.TOO_BAD -> 1f
-                Rating.BAD -> 2f
-                Rating.OK -> 3f
-                Rating.GOOD -> 4f
+                Rating.TOO_BAD -> 1.99f
+                Rating.BAD -> 2.99f
+                Rating.OK -> 3.99f
+                Rating.GOOD -> 4.99f
                 Rating.VERY_GOOD -> 5f
                 else -> 5f
             }
@@ -28,11 +28,11 @@ internal class FeedbackRemoteDataStoreImpl(
                 .map { ratingRemoteModel ->
                     FeedbackModel(
                         when(ratingRemoteModel.rating) {
-                            0f, in 0f to 1f -> Rating.TOO_BAD
-                            in 1f to 2f -> Rating.BAD
-                            in 2f to 3f -> Rating.OK
-                            in 3f to 4f -> Rating.GOOD
-                            in 4f to 5f -> Rating.VERY_GOOD
+                            0f, in 0f to 2f -> Rating.TOO_BAD
+                            in 2f to 3f -> Rating.BAD
+                            in 3f to 4f -> Rating.OK
+                            in 4f to 5f -> Rating.GOOD
+                            5f -> Rating.VERY_GOOD
                             else -> Rating.VERY_GOOD
                         },
                         ratingRemoteModel.timestamp

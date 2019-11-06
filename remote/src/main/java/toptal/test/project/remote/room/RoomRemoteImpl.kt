@@ -8,6 +8,6 @@ import toptal.test.project.remote.HappyAirGateway
 internal class RoomRemoteImpl(private val happyAirGateway: HappyAirGateway): RoomRemote {
 
     override fun getRooms(): Single<List<RoomModel>> {
-        return happyAirGateway.getRooms().map { it.rooms }
+        return happyAirGateway.getRooms()
     }
 }
