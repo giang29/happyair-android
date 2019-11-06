@@ -45,6 +45,7 @@ internal class FeedbackRemoteDataStoreImpl(
                         ratingRemoteModel.timestamp
                     )
                 }
+                .sortedByDescending { ratingRemoteModel -> ratingRemoteModel.time }
         }
     }
 }
