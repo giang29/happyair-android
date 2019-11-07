@@ -1,22 +1,23 @@
 package toptal.test.project.presentation.report
 
+import android.os.Parcelable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
-import toptal.test.project.common.model.FeedbackModel
+import kotlinx.android.parcel.Parcelize
 import toptal.test.project.common.model.Rating
-import toptal.test.project.common.model.RoomModel
 import toptal.test.project.domain.feedback.FetchAllFeedbackUseCase
 import toptal.test.project.domain.room.FetchRoomUseCase
 import toptal.test.project.presentation.Event
 import toptal.test.project.presentation.base.BaseViewModel
 import toptal.test.project.presentation.base.BaseViewState
+import toptal.test.project.presentation.model.RoomPresentationModel
 
 data class FeedbackViewState(
-    val rooms: Event<List<RoomModel>>? = null,
+    val rooms: Event<List<RoomPresentationModel>>? = null,
     val loadingFeedback: Boolean = false,
     val error: Event<Throwable>? = null,
-    val feedbacks: Event<List<FeedbackModel>>? = null
-): BaseViewState
+    val feedbacks: Event<List<FeedbackPresentationModel>>? = null
+) : BaseViewState
 
 class FeedbackViewModel(
     fetchRoomUseCase: FetchRoomUseCase,
@@ -28,7 +29,24 @@ class FeedbackViewModel(
             .subscribeBy(
                 onSuccess = {
                     _viewStates.value = viewStates.value
-                        ?.copy(rooms = Event(it))
+                        ?.copy(rooms = Event(
+                            it.map { model ->
+                                model.run {
+                                    RoomPresentationModel(
+                                        id,
+                                        name,
+                                        co2,
+                                        humidity,
+                                        pm1,
+                                        pm10,
+                                        pm2_5,
+                                        temperature,
+                                        tvoc,
+                                        pressureDiff
+                                    )
+                                }
+                            }
+                        ))
                 },
                 onError = {
                     _viewStates.value = viewStates.value
@@ -50,8 +68,41 @@ class FeedbackViewModel(
                 },
                 onSuccess = {
                     _viewStates.value = viewStates.value
-                        ?.copy(loadingFeedback = false, error = null, feedbacks = Event(it))
+                        ?.copy(
+                            loadingFeedback = false,
+                            error = null,
+                            feedbacks = Event(it.map { model ->
+                                model.run {
+                                    FeedbackPresentationModel(
+                                        this.rating,
+                                        time,
+                                        temperature,
+                                        freshness,
+                                        humidity,
+                                        smell,
+                                        cleanliness,
+                                        lighting,
+                                        sound,
+                                        workingAbility
+                                    )
+                                }
+                            })
+                        )
                 }
             )
     }
 }
+
+@Parcelize
+data class FeedbackPresentationModel(
+    val rating: Rating,
+    val time: Long,
+    val temperature: Int?,
+    val freshness: Int?,
+    val humidity: Int?,
+    val smell: Float?,
+    val cleanliness: Float?,
+    val lighting: Int?,
+    val sound: Int?,
+    val workingAbility: Int?
+) : Parcelable

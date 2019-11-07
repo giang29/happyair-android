@@ -1,9 +1,6 @@
-package toptal.test.project.common.model
+package toptal.test.project.presentation.model
 
-import com.squareup.moshi.JsonClass
-
-@JsonClass(generateAdapter = true)
-data class RoomModel(
+data class RoomPresentationModel(
     val id: String,
     val name: String,
     val co2: Int?,

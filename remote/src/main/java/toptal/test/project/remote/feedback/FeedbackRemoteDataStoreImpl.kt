@@ -42,7 +42,15 @@ internal class FeedbackRemoteDataStoreImpl(
                             in 4.25f to 5f -> Rating.VERY_GOOD
                             else -> Rating.VERY_GOOD
                         },
-                        ratingRemoteModel.timestamp
+                        ratingRemoteModel.timestamp,
+                        ratingRemoteModel.temperature,
+                        ratingRemoteModel.freshness,
+                        ratingRemoteModel.humidity,
+                        ratingRemoteModel.smell,
+                        ratingRemoteModel.cleanliness,
+                        ratingRemoteModel.lighting,
+                        ratingRemoteModel.sound,
+                        ratingRemoteModel.workingAbility
                     )
                 }
                 .sortedByDescending { ratingRemoteModel -> ratingRemoteModel.time }

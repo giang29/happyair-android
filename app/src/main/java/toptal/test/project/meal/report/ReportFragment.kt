@@ -25,9 +25,9 @@ import com.google.android.material.chip.Chip
 import com.jakewharton.rxbinding3.widget.checkedChanges
 import com.llollox.androidtoggleswitch.widgets.ToggleSwitch
 import toptal.test.project.common.fullDateFormat
-import toptal.test.project.common.model.RoomModel
 import toptal.test.project.common.shortDateFormat
 import toptal.test.project.common.weekFormat
+import toptal.test.project.presentation.model.RoomPresentationModel
 
 
 internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>() {
@@ -64,7 +64,7 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
         f_report_toggle_switch.setCheckedPosition(0)
         f_report_toggle_switch.onChangeListener = object: ToggleSwitch.OnChangeListener {
             override fun onToggleSwitchChanged(position: Int) {
-                (f_report_room_spinner.selectedItem as? RoomModel)?.run {
+                (f_report_room_spinner.selectedItem as? RoomPresentationModel)?.run {
                     viewModel.loadReport(
                         id,
                         selectedDatatype,
@@ -90,7 +90,7 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
                             AirDataType.TEMPERATURE.toString() -> AirDataType.TEMPERATURE
                             else -> throw IllegalArgumentException(v.text.toString())
                         }
-                        (f_report_room_spinner.selectedItem as? RoomModel)?.run {
+                        (f_report_room_spinner.selectedItem as? RoomPresentationModel)?.run {
                             viewModel.loadReport(
                                 id,
                                 selectedDatatype,

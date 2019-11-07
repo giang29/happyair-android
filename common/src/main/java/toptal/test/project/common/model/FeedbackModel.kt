@@ -18,5 +18,13 @@ enum class Rating(private val stringValue: String? = null, val point: Int? = nul
 
 data class FeedbackModel(
     val rating: Rating,
-    val time: Long
+    val time: Long,
+    val temperature: Int?,
+    val freshness: Int?,
+    val humidity: Int?,
+    val smell: Float?,
+    val cleanliness: Float?,
+    val lighting: Int?,
+    val sound: Int?,
+    val workingAbility: Int?
 )

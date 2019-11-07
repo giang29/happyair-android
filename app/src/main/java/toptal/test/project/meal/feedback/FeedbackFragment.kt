@@ -12,10 +12,10 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.f_feedback.*
 import toptal.test.project.common.model.Rating
-import toptal.test.project.common.model.RoomModel
 import toptal.test.project.meal.R
 import toptal.test.project.meal.base.BaseFragment
 import toptal.test.project.meal.report.adapter.RoomAdapter
+import toptal.test.project.presentation.model.RoomPresentationModel
 import toptal.test.project.presentation.report.FeedbackViewModel
 import toptal.test.project.presentation.report.FeedbackViewState
 
@@ -42,7 +42,7 @@ internal class FeedbackFragment : BaseFragment<FeedbackViewModel, FeedbackViewSt
                         isClickable = !it
                         if (it) {
                             selectedRating = null
-                            (f_feedback_room_spinner.selectedItem as? RoomModel)?.run {
+                            (f_feedback_room_spinner.selectedItem as? RoomPresentationModel)?.run {
                                 viewModel.loadFeedback(id, null)
                             }
                         }
@@ -62,7 +62,7 @@ internal class FeedbackFragment : BaseFragment<FeedbackViewModel, FeedbackViewSt
                             isClickable = !it
                             if (it) {
                                 selectedRating = rating
-                                (f_feedback_room_spinner.selectedItem as? RoomModel)?.run {
+                                (f_feedback_room_spinner.selectedItem as? RoomPresentationModel)?.run {
                                     viewModel.loadFeedback(id, rating)
                                 }
                             }

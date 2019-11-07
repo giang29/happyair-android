@@ -4,11 +4,11 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.i_feedback.*
 import toptal.test.project.common.dateTimeDateFormat
-import toptal.test.project.common.model.FeedbackModel
 import toptal.test.project.common.model.Rating
 import toptal.test.project.meal.R
+import toptal.test.project.presentation.report.FeedbackPresentationModel
 
-class FeedbackItem(private val feedbackModel: FeedbackModel) : Item() {
+class FeedbackItem(private val feedbackModel: FeedbackPresentationModel) : Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.i_feedback_icon.setImageResource(
             when (feedbackModel.rating) {

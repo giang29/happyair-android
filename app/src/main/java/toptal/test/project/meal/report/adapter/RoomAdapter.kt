@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import kotlinx.android.synthetic.main.i_spinner.view.*
-import toptal.test.project.common.model.RoomModel
 import toptal.test.project.meal.R
+import toptal.test.project.presentation.model.RoomPresentationModel
 
 
-class RoomAdapter(context: Context, private val data: List<RoomModel>):
-    ArrayAdapter<RoomModel>(context, 0, data) {
+class RoomAdapter(context: Context, private val data: List<RoomPresentationModel>):
+    ArrayAdapter<RoomPresentationModel>(context, 0, data) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
