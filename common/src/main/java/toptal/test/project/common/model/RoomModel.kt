@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class RoomModel(
     val id: String,
-    val name: String,
+    val name: Map<String, String>,
     val co2: Int?,
     val humidity: Int?,
     val pm1: Int?,

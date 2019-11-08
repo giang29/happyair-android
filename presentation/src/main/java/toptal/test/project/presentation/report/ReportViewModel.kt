@@ -1,5 +1,6 @@
 package toptal.test.project.presentation.report
 
+import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import toptal.test.project.common.model.AirDataType
@@ -12,16 +13,27 @@ import toptal.test.project.presentation.base.BaseViewModel
 import toptal.test.project.presentation.base.BaseViewState
 import toptal.test.project.presentation.model.RoomPresentationModel
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 data class ReportViewState(
     val rooms: Event<List<RoomPresentationModel>>? = null,
     val reportListModel: Event<ReportListModel>? = null
 ) : BaseViewState
 
+data class Filter(
+    val room: String,
+    val dataType: AirDataType,
+    val startTime: Calendar,
+    val endTime: Calendar,
+    val groupBy: GroupType
+)
+
 class ReportViewModel(
     fetchRoomUseCase: FetchRoomUseCase,
     private val useCase: FetchReportForRoomUseCase
 ) : BaseViewModel<ReportViewState>() {
+
+    private val relay = PublishRelay.create<Filter>()
 
     init {
         _viewStates.value = ReportViewState()
@@ -49,6 +61,20 @@ class ReportViewModel(
                 },
                 onError = {}
             )
+        disposables += relay.throttleFirst(100, TimeUnit.MILLISECONDS)
+            .distinctUntilChanged()
+            .switchMap {
+                useCase.execute(
+                    it.room, it.dataType, it.startTime, it.endTime, it.groupBy
+                ).toObservable()
+            }.subscribeBy(
+                onError = {
+
+                },
+                onNext = {
+                    _viewStates.value = viewStates.value?.copy(reportListModel = Event(it))
+                }
+            )
     }
 
     fun loadReport(
@@ -58,15 +84,8 @@ class ReportViewModel(
         endTime: Calendar,
         groupBy: GroupType
     ) {
-        disposables += useCase.execute(
-            room, dataType, startTime, endTime, groupBy
-        ).subscribeBy(
-            onError = {
-
-            },
-            onSuccess = {
-                _viewStates.value = viewStates.value?.copy(reportListModel = Event(it))
-            }
+        relay.accept(
+            Filter(room, dataType, startTime, endTime, groupBy)
         )
     }
 }

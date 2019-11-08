@@ -20,7 +20,7 @@ class RoomAdapter(context: Context, private val data: List<RoomPresentationModel
         val viewHolder = convertView ?: LayoutInflater.from(context).inflate(android.R.layout.simple_dropdown_item_1line, parent, false)
 
         (viewHolder as TextView).apply {
-            text = data[position].name
+            text = data[position].getLocalizedString()
             setTextColor(Color.parseColor("#ffffff"))
         }
         return viewHolder
@@ -30,7 +30,7 @@ class RoomAdapter(context: Context, private val data: List<RoomPresentationModel
         val viewHolder = convertView ?: LayoutInflater.from(context).inflate(R.layout.i_spinner, parent, false)
 
         viewHolder.i_spinner_text.apply {
-            text = data[position].name
+            text = data[position].getLocalizedString()
             setTextColor(Color.parseColor("#000000"))
         }
         return viewHolder

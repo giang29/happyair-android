@@ -9,6 +9,7 @@ import toptal.test.project.common.dateTimeDateFormat
 import toptal.test.project.common.model.Rating
 import toptal.test.project.meal.R
 import toptal.test.project.meal.base.StatelessBaseFragment
+import java.util.*
 
 
 internal class FeedbackDetailFragment : StatelessBaseFragment() {
@@ -23,57 +24,58 @@ internal class FeedbackDetailFragment : StatelessBaseFragment() {
         }
         args.feedback.run {
             f_feedback_detail_icon.setImageResource(
-                when (rating) {
-                    Rating.TOO_BAD -> R.drawable.ic_very_bad
-                    Rating.BAD -> R.drawable.ic_bad
-                    Rating.OK -> R.drawable.ic_ok
-                    Rating.GOOD -> R.drawable.ic_good
-                    Rating.VERY_GOOD -> R.drawable.ic_very_good
-                    Rating.UNKNOWN -> R.drawable.ic_very_good
-                }
+                rating.getIcon()
             )
             f_feedback_detail_rating.text = rating.toString()
             f_feedback_detail_date.text = dateTimeDateFormat.format(time)
 
             temperature?.run {
                 group_temp.isVisible = true
-                f_feed_detail_icon_temp.setImageResource(getRating().getIcon())
-                f_feed_detail_temp.text = getRating().toString()
+                f_feed_detail_icon_temp.setImageResource(value.getRating().getIcon())
+                f_feed_detail_temp.text = getLocalizedString()?.toLowerCase(Locale.ROOT)?.capitalize() 
+                    ?: value.getRating().toString()
             } ?: run { group_temp.isVisible = false }
             freshness?.run {
                 group_fresh.isVisible = true
-                f_feed_detail_icon_fresh.setImageResource(getRating().getIcon())
-                f_feed_detail_fresh.text = getRating().toString()
+                f_feed_detail_icon_fresh.setImageResource(value.getRating().getIcon())
+                f_feed_detail_fresh.text = getLocalizedString()?.toLowerCase(Locale.ROOT)?.capitalize() 
+                    ?: value.getRating().toString()
             } ?: run { group_fresh.isVisible = false }
             humidity?.run {
                 group_humid.isVisible = true
-                f_feed_detail_icon_humid.setImageResource(getRating().getIcon())
-                f_feed_detail_humid.text = getRating().toString()
+                f_feed_detail_icon_humid.setImageResource(value.getRating().getIcon())
+                f_feed_detail_humid.text = getLocalizedString()?.toLowerCase(Locale.ROOT)?.capitalize()
+                    ?: value.getRating().toString()
             } ?: run { group_humid.isVisible = false }
             smell?.run {
                 group_smell.isVisible = true
-                f_feed_detail_icon_smell.setImageResource(getRating().getIcon())
-                f_feed_detail_smell.text = getRating().toString()
+                f_feed_detail_icon_smell.setImageResource(value.getRating().getIcon())
+                f_feed_detail_smell.text = getLocalizedString()?.toLowerCase(Locale.ROOT)?.capitalize() 
+                    ?: value.getRating().toString()
             } ?: run { group_smell.isVisible = false }
             workingAbility?.run {
                 group_wa.isVisible = true
-                f_feed_detail_icon_work.setImageResource(getRating().getIcon())
-                f_feed_detail_wa.text = getRating().toString()
+                f_feed_detail_icon_work.setImageResource(value.getRating().getIcon())
+                f_feed_detail_wa.text = getLocalizedString()?.toLowerCase(Locale.ROOT)?.capitalize() 
+                    ?: value.getRating().toString()
             } ?: run { group_wa.isVisible = false }
             lighting?.run {
                 group_lighting.isVisible = true
-                f_feed_detail_icon_light.setImageResource(getRating().getIcon())
-                f_feed_detail_light.text = getRating().toString()
+                f_feed_detail_icon_light.setImageResource(value.getRating().getIcon())
+                f_feed_detail_light.text = getLocalizedString()?.toLowerCase(Locale.ROOT)?.capitalize() 
+                    ?: value.getRating().toString()
             } ?: run { group_lighting.isVisible = false }
             cleanliness?.run {
                 group_clean.isVisible = true
-                f_feed_detail_icon_clean.setImageResource(getRating().getIcon())
-                f_feed_detail_clean.text = getRating().toString()
+                f_feed_detail_icon_clean.setImageResource(value.getRating().getIcon())
+                f_feed_detail_clean.text = getLocalizedString()?.toLowerCase(Locale.ROOT)?.capitalize() 
+                    ?: value.getRating().toString()
             } ?: run { group_clean.isVisible = false }
             sound?.run {
                 group_sound.isVisible = true
-                f_feed_detail_icon_sound.setImageResource(getRating().getIcon())
-                f_feed_detail_sound.text = getRating().toString()
+                f_feed_detail_icon_sound.setImageResource(value.getRating().getIcon())
+                f_feed_detail_sound.text = getLocalizedString()?.toLowerCase(Locale.ROOT)?.capitalize() 
+                    ?: value.getRating().toString()
             } ?: run { group_sound.isVisible = false }
         }
     }
@@ -87,10 +89,6 @@ internal class FeedbackDetailFragment : StatelessBaseFragment() {
             in 4.25f..5f -> Rating.VERY_GOOD
             else -> Rating.VERY_GOOD
         }
-    }
-
-    private fun Int.getRating(): Rating {
-        return toFloat().getRating()
     }
 
     private fun Rating.getIcon(): Int {

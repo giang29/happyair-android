@@ -4,15 +4,16 @@ import android.os.Parcelable
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.parcel.Parcelize
 import toptal.test.project.common.model.Rating
+import toptal.test.project.common.model.ValueModel
 import toptal.test.project.domain.feedback.FetchAllFeedbackUseCase
 import toptal.test.project.domain.room.FetchRoomUseCase
 import toptal.test.project.presentation.Event
 import toptal.test.project.presentation.base.BaseViewModel
 import toptal.test.project.presentation.base.BaseViewState
 import toptal.test.project.presentation.model.RoomPresentationModel
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 data class FeedbackViewState(
@@ -83,14 +84,14 @@ class FeedbackViewModel(
                                     FeedbackPresentationModel(
                                         this.rating,
                                         time,
-                                        temperature,
-                                        freshness,
-                                        humidity,
-                                        smell,
-                                        cleanliness,
-                                        lighting,
-                                        sound,
-                                        workingAbility
+                                        temperature?.toValuePresentationModel(),
+                                        freshness?.toValuePresentationModel(),
+                                        humidity?.toValuePresentationModel(),
+                                        smell?.toValuePresentationModel(),
+                                        cleanliness?.toValuePresentationModel(),
+                                        lighting?.toValuePresentationModel(),
+                                        sound?.toValuePresentationModel(),
+                                        workingAbility?.toValuePresentationModel()
                                     )
                                 }
                             })
@@ -105,15 +106,33 @@ class FeedbackViewModel(
 }
 
 @Parcelize
+data class ValuePresentationModel(
+    val value: Float,
+    val answer: Map<String, String>?
+): Parcelable {
+    fun getLocalizedString(): String? {
+        return answer?.get(Locale.getDefault().language.toLowerCase(Locale.ROOT))
+            ?: answer?.get("fi")
+    }
+}
+
+private fun ValueModel.toValuePresentationModel(): ValuePresentationModel {
+    return ValuePresentationModel(
+        value,
+        answer
+    )
+}
+
+@Parcelize
 data class FeedbackPresentationModel(
     val rating: Rating,
     val time: Long,
-    val temperature: Int?,
-    val freshness: Int?,
-    val humidity: Int?,
-    val smell: Float?,
-    val cleanliness: Float?,
-    val lighting: Int?,
-    val sound: Int?,
-    val workingAbility: Int?
+    val temperature: ValuePresentationModel?,
+    val freshness: ValuePresentationModel?,
+    val humidity: ValuePresentationModel?,
+    val smell: ValuePresentationModel?,
+    val cleanliness: ValuePresentationModel?,
+    val lighting: ValuePresentationModel?,
+    val sound: ValuePresentationModel?,
+    val workingAbility: ValuePresentationModel?
 ) : Parcelable
