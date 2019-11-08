@@ -197,6 +197,7 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
             cartesian.yAxis(0).labels().format("{%Value}{groupsSeparator: } $unit")
 
             cartesian.xAxis(0).title("Timeline")
+            cartesian.xZoom().setToPointsCount(7, true, null)
         }
         return super.onStateChanged(viewState)
     }
