@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +19,9 @@ internal abstract class BaseFragment<VM : BaseViewModel<VS>, VS : BaseViewState>
     : Fragment(), KodeinAware {
 
     override val kodein: Kodein by lazy { (activity?.applicationContext as KodeinAware).kodein }
+
+    protected var isInitialized = false
+        private set
 
     private val viewModelFactory: ViewModelProvider.Factory by instance()
     protected inline fun <reified VM : BaseViewModel<VS>> provideViewModel() =
@@ -34,7 +38,11 @@ internal abstract class BaseFragment<VM : BaseViewModel<VS>, VS : BaseViewState>
 
     protected abstract val layoutResource: Int
 
-    protected abstract fun onStateChanged(viewState: VS)
+    @CallSuper
+    protected open fun onStateChanged(viewState: VS): Boolean {
+        isInitialized = true
+        return isInitialized
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +50,11 @@ internal abstract class BaseFragment<VM : BaseViewModel<VS>, VS : BaseViewState>
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(layoutResource, container, false)
+    }
+
+    override fun onDestroyView() {
+        isInitialized = false
+        super.onDestroyView()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -1,5 +1,9 @@
 package toptal.test.project.presentation.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class RoomPresentationModel(
     val id: String,
     val name: String,
@@ -11,4 +15,4 @@ data class RoomPresentationModel(
     val temperature: Int?,
     val tvoc: Int?,
     val pressureDiff: Int?
-)
+): Parcelable

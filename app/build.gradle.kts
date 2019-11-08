@@ -7,7 +7,7 @@ plugins {
     id("kotlin-android-extensions")
     id("kotlin-kapt")
 }
-
+apply(plugin = "androidx.navigation.safeargs.kotlin")
 android {
     compileSdkVersion(AndroidSettings.compileSdkVersion)
     defaultConfig {

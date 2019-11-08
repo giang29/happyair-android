@@ -9,12 +9,20 @@
         android:id="@+id/f_home"
         android:name="toptal.test.project.meal.home.HomeFragment"
         android:label="f_report"
-        tools:layout="@layout/f_home" />
+        tools:layout="@layout/f_home">
+        <action
+            android:id="@+id/action_f_home_to_feedbackDetailFragment"
+            app:destination="@id/f_feedback_detail"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@+id/f_home"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/f_splash"
         android:name="toptal.test.project.meal.home.SplashFragment"
         android:label="f_splash"
-        tools:layout="@layout/f_splash" >
+        tools:layout="@layout/f_splash">
         <action
             android:id="@+id/action_f_splash_to_f_home"
             app:destination="@id/f_home"
@@ -22,5 +30,17 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popUpTo="@+id/f_splash"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/f_feedback_detail"
+        android:name="toptal.test.project.meal.feedback.FeedbackDetailFragment"
+        android:label="f_feedback_detail"
+        tools:layout="@layout/f_feedback_detail" >
+        <argument
+            android:name="feedback"
+            app:argType="toptal.test.project.presentation.report.FeedbackPresentationModel" />
+        <argument
+            android:name="room"
+            app:argType="toptal.test.project.presentation.model.RoomPresentationModel" />
     </fragment>
 </navigation>

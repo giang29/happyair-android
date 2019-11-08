@@ -36,7 +36,7 @@ internal abstract class BaseActivity<VM : BaseViewModel<VS>, VS : BaseViewState>
         viewModel.viewStates.observe(this, Observer { viewState ->
             onStateChanged(viewState)
         })
-        //Exclude some Views to prevent flashing during transition animations:
+        //Exclude some Views until prevent flashing during transition animations:
         window.enterTransition?.apply {
             excludeTarget(android.R.id.statusBarBackground, true)
             excludeTarget(android.R.id.navigationBarBackground, true)

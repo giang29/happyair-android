@@ -1,8 +1,10 @@
 package toptal.test.project.presentation.report
 
 import android.os.Parcelable
+import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.parcel.Parcelize
 import toptal.test.project.common.model.Rating
 import toptal.test.project.domain.feedback.FetchAllFeedbackUseCase
@@ -11,6 +13,7 @@ import toptal.test.project.presentation.Event
 import toptal.test.project.presentation.base.BaseViewModel
 import toptal.test.project.presentation.base.BaseViewState
 import toptal.test.project.presentation.model.RoomPresentationModel
+import java.util.concurrent.TimeUnit
 
 data class FeedbackViewState(
     val rooms: Event<List<RoomPresentationModel>>? = null,
@@ -23,6 +26,8 @@ class FeedbackViewModel(
     fetchRoomUseCase: FetchRoomUseCase,
     private val loadFeedbackUseCase: FetchAllFeedbackUseCase
 ) : BaseViewModel<FeedbackViewState>() {
+    private val relay = PublishRelay.create<Pair<String, Rating?>>()
+
     init {
         _viewStates.value = FeedbackViewState()
         disposables += fetchRoomUseCase.execute()
@@ -53,20 +58,22 @@ class FeedbackViewModel(
                         ?.copy(rooms = Event(emptyList()))
                 }
             )
-    }
-
-    fun loadFeedback(room: String, rating: Rating?) {
-        disposables += loadFeedbackUseCase.execute(room, rating)
-            .doOnSubscribe {
-                _viewStates.value = viewStates.value
-                    ?.copy(loadingFeedback = true, error = null, feedbacks = null)
+        disposables += relay.throttleFirst(100, TimeUnit.MILLISECONDS)
+            .distinctUntilChanged()
+            .switchMap {
+                loadFeedbackUseCase.execute(it.first, it.second)
+                    .doOnSubscribe {
+                        _viewStates.value = viewStates.value
+                            ?.copy(loadingFeedback = true, error = null)
+                    }
+                    .toObservable()
             }
             .subscribeBy(
                 onError = {
                     _viewStates.value = viewStates.value
                         ?.copy(loadingFeedback = false, error = Event(it), feedbacks = null)
                 },
-                onSuccess = {
+                onNext = {
                     _viewStates.value = viewStates.value
                         ?.copy(
                             loadingFeedback = false,
@@ -90,6 +97,10 @@ class FeedbackViewModel(
                         )
                 }
             )
+    }
+
+    fun loadFeedback(room: String, rating: Rating?) {
+        relay.accept(Pair(room, rating))
     }
 }
 

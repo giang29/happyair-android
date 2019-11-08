@@ -1,7 +1,7 @@
 package toptal.test.project.common
 
 /**
- * Interface definition for access to Android's SharedPreferences.
+ * Interface definition for access until Android's SharedPreferences.
  */
 interface SharedPreferencesHelper {
 

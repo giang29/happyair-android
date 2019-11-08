@@ -45,7 +45,7 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
             }
     }
 
-    private fun togglePositionToGroupType(position: Int) : GroupType {
+    private fun togglePositionToGroupType(position: Int): GroupType {
         return when (position) {
             0 -> GroupType.DAILY
             1 -> GroupType.WEEKLY
@@ -62,7 +62,7 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
 
         (f_report_chip_group_data_type[0] as Chip).isChecked = true
         f_report_toggle_switch.setCheckedPosition(0)
-        f_report_toggle_switch.onChangeListener = object: ToggleSwitch.OnChangeListener {
+        f_report_toggle_switch.onChangeListener = object : ToggleSwitch.OnChangeListener {
             override fun onToggleSwitchChanged(position: Int) {
                 (f_report_room_spinner.selectedItem as? RoomPresentationModel)?.run {
                     viewModel.loadReport(
@@ -99,7 +99,9 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
                                         System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000
                                 },
                                 Calendar.getInstance(),
-                                togglePositionToGroupType(f_report_toggle_switch.checkedPosition ?: 0)
+                                togglePositionToGroupType(
+                                    f_report_toggle_switch.checkedPosition ?: 0
+                                )
                             )
                         }
                     }
@@ -107,10 +109,15 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
         }
     }
 
-    override fun onStateChanged(viewState: ReportViewState) {
-        when (viewState) {
-            is ReportViewState.Initial -> {
-                f_report_room_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+    override fun onStateChanged(viewState: ReportViewState): Boolean {
+        viewState.rooms?.run {
+            if (isInitialized)
+                getContentIfNotHandledOrReturnNull()
+            else
+                peekContent()
+        }?.run {
+            f_report_room_spinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
                     override fun onItemSelected(
@@ -120,67 +127,78 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
                         id: Long
                     ) {
                         viewModel.loadReport(
-                            viewState.rooms[position].id,
+                            get(position).id,
                             selectedDatatype,
-                            Calendar.getInstance().apply { timeInMillis = System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000 },
+                            Calendar.getInstance().apply {
+                                timeInMillis =
+                                    System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000
+                            },
                             Calendar.getInstance(),
-                            togglePositionToGroupType(f_report_toggle_switch.checkedPosition ?: 0)
+                            togglePositionToGroupType(
+                                f_report_toggle_switch.checkedPosition ?: 0
+                            )
                         )
                     }
                 }
-                f_report_room_spinner.adapter = RoomAdapter(requireContext(), viewState.rooms)
-                f_report_room_spinner.setSelection(0)
-            }
-            is ReportViewState.Success -> {
-                val reports = viewState.reportListModel.data
-                cartesian.removeAllSeries()
-                cartesian.legend().enabled(true)
-
-                APIlib.getInstance().setActiveAnyChartView(f_report_graph)
-
-                cartesian.animation(true)
-                val columnData = reports.map {
-                    ValueDataEntry(formatDate(viewState.reportListModel.groupBy, it.collectedTime), it.value)
-                }
-
-                val lineData = reports.map {
-                    ValueDataEntry(formatDate(viewState.reportListModel.groupBy, it.collectedTime), it.rating)
-                }
-
-                val max = reports.map { it.value }.max() ?: 0f
-                cartesian.column(columnData).name(viewState.reportListModel.type.toString())
-                    .fill(
-                        "function() {" +
-                                "var max = ${max};\n" +
-                                "if (this.value > max*4/5 + max/5) return '#f56566';\n" +
-                                "if (this.value > max*3/5 + max/5) return 'orange';\n" +
-                                "if (this.value > max*2/5 + max/5) return 'yellow';\n" +
-                                "return '#7dc206';}"
-                    )
-                    .stroke("#ffffff", 0, "5", StrokeLineJoin.BEVEL, StrokeLineCap.SQUARE)
-                    .legendItem().enabled(false)
-
-                val scalesLinear = Linear.instantiate()
-                scalesLinear.minimum(1.0f)
-                scalesLinear.maximum(5.0f)
-                scalesLinear.ticks("{ interval: 1 }")
-
-                val extraYAxis = cartesian.yAxis(1)
-                extraYAxis.orientation(Orientation.RIGHT)
-                    .scale(scalesLinear)
-
-                val line = cartesian.line(lineData).stroke("{thickness: 2, color: '#0091fc'}")
-                line.markers().enabled(true)
-                line.name("Average Rating")
-                line.yScale(scalesLinear)
-
-                cartesian.yScale().minimum(0.0)
-
-                cartesian.yAxis(0).labels().format("{%Value}{groupsSeparator: } ${viewState.reportListModel.unit}")
-
-                cartesian.xAxis(0).title("Timeline")
-            }
+            f_report_room_spinner.adapter = RoomAdapter(requireContext(), this)
+            f_report_room_spinner.setSelection(0)
         }
+
+        viewState.reportListModel?.run {
+            if (isInitialized)
+                getContentIfNotHandledOrReturnNull()
+            else
+                peekContent()
+        }?.run {
+            val reports = data
+            cartesian.removeAllSeries()
+            cartesian.legend().enabled(true)
+
+            APIlib.getInstance().setActiveAnyChartView(f_report_graph)
+
+            cartesian.animation(true)
+            val columnData = reports.map {
+                ValueDataEntry(formatDate(groupBy, it.collectedTime), it.value)
+            }
+
+            val lineData = reports.map {
+                ValueDataEntry(formatDate(groupBy, it.collectedTime), it.rating)
+            }
+
+            val max = reports.map { it.value }.max() ?: 0f
+            cartesian.column(columnData).name(type.toString())
+                .fill(
+                    "function() {" +
+                            "var max = ${max};\n" +
+                            "if (this.value > max*4/5 + max/5) return '#f56566';\n" +
+                            "if (this.value > max*3/5 + max/5) return 'orange';\n" +
+                            "if (this.value > max*2/5 + max/5) return 'yellow';\n" +
+                            "return '#7dc206';}"
+                )
+                .stroke("#ffffff", 0, "5", StrokeLineJoin.BEVEL, StrokeLineCap.SQUARE)
+                .legendItem().enabled(false)
+
+            val scalesLinear = Linear.instantiate()
+            scalesLinear.minimum(1.0f)
+            scalesLinear.maximum(5.0f)
+            scalesLinear.ticks("{ interval: 1 }")
+
+            val extraYAxis = cartesian.yAxis(1)
+            extraYAxis.orientation(Orientation.RIGHT)
+                .scale(scalesLinear)
+
+            val line = cartesian.line(lineData).stroke("{thickness: 2, color: '#0091fc'}")
+            line.markers().enabled(true)
+            line.name("Average Rating")
+            line.yScale(scalesLinear)
+
+            cartesian.yScale().minimum(0.0)
+
+            cartesian.yAxis(0).labels().format("{%Value}{groupsSeparator: } $unit")
+
+            cartesian.xAxis(0).title("Timeline")
+        }
+        return super.onStateChanged(viewState)
     }
 
     private fun formatDate(groupBy: GroupType, calendar: Calendar): String {

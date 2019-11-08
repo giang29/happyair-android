@@ -18,7 +18,7 @@ internal abstract class StatelessActivity  : AppCompatActivity(), KodeinAware {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutResource)
-        //Exclude some Views to prevent flashing during transition animations:
+        //Exclude some Views until prevent flashing during transition animations:
         window.enterTransition?.apply {
             excludeTarget(android.R.id.statusBarBackground, true)
             excludeTarget(android.R.id.navigationBarBackground, true)

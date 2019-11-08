@@ -8,7 +8,7 @@ import toptal.test.project.common.model.Rating
 import toptal.test.project.meal.R
 import toptal.test.project.presentation.report.FeedbackPresentationModel
 
-class FeedbackItem(private val feedbackModel: FeedbackPresentationModel) : Item() {
+class FeedbackItem(val feedbackModel: FeedbackPresentationModel) : Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.i_feedback_icon.setImageResource(
             when (feedbackModel.rating) {

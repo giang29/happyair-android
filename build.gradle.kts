@@ -6,6 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 apply(plugin = "com.github.ben-manes.versions")
 buildscript {
     val updatePluginVersion = "0.26.0"
+    val nav_version = "2.1.0"
     repositories {
         google()
         jcenter()
@@ -15,6 +16,7 @@ buildscript {
         classpath(kotlin("gradle-plugin", version = Versions.kotlinStdLib))
         classpath(Dependencies.kotlinAndroidExtensions)
         classpath("com.github.ben-manes:gradle-versions-plugin:$updatePluginVersion")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
     }
 }
 

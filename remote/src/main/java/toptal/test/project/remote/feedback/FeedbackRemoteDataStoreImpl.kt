@@ -13,10 +13,10 @@ internal class FeedbackRemoteDataStoreImpl(
         return happyAirGateway.getFeedbacks(
             room,
             when (rating) {
-                Rating.TOO_BAD -> 1.49f
-                Rating.BAD -> 2.74f
-                Rating.OK -> 3.74f
-                Rating.GOOD -> 4.24f
+                Rating.TOO_BAD -> 1.5f
+                Rating.BAD -> 2.75f
+                Rating.OK -> 3.75f
+                Rating.GOOD -> 4.25f
                 Rating.VERY_GOOD -> 5f
                 else -> 5f
             }
@@ -25,10 +25,10 @@ internal class FeedbackRemoteDataStoreImpl(
                 .filter { ratingRemoteModel ->
                     ratingRemoteModel.rating in when (rating) {
                         Rating.TOO_BAD -> 0f..1.5f
-                        Rating.BAD -> 1.5f..2.74f
-                        Rating.OK -> 2.75f..3.74f
-                        Rating.GOOD -> 3.75f..4.24f
-                        Rating.VERY_GOOD -> 4.25f..5f
+                        Rating.BAD -> 1.51f..2.75f
+                        Rating.OK -> 2.76f..3.75f
+                        Rating.GOOD -> 3.76f..4.25f
+                        Rating.VERY_GOOD -> 4.26f..5f
                         else -> 0f..5f
                     }
                 }
@@ -36,10 +36,10 @@ internal class FeedbackRemoteDataStoreImpl(
                     FeedbackModel(
                         when (ratingRemoteModel.rating) {
                             in 0f..1.5f -> Rating.TOO_BAD
-                            in 1.5f to 2.75f -> Rating.BAD
-                            in 2.75f to 3.75f -> Rating.OK
-                            in 3.75f to 4.25f -> Rating.GOOD
-                            in 4.25f to 5f -> Rating.VERY_GOOD
+                            in 1.5f..2.75f -> Rating.BAD
+                            in 2.75f..3.75f -> Rating.OK
+                            in 3.75f..4.25f -> Rating.GOOD
+                            in 4.25f..5f -> Rating.VERY_GOOD
                             else -> Rating.VERY_GOOD
                         },
                         ratingRemoteModel.timestamp,
@@ -57,8 +57,3 @@ internal class FeedbackRemoteDataStoreImpl(
         }
     }
 }
-
-data class SemiOpenFloatRange(val from: Float, val to: Float)
-
-infix fun Float.to(to: Float) = SemiOpenFloatRange(this, to)
-operator fun SemiOpenFloatRange.contains(f: Float) = from <= f && f < to

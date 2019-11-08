@@ -7,29 +7,29 @@ import toptal.test.project.common.model.GroupType
 import toptal.test.project.common.model.ReportListModel
 import toptal.test.project.domain.report.FetchReportForRoomUseCase
 import toptal.test.project.domain.room.FetchRoomUseCase
+import toptal.test.project.presentation.Event
 import toptal.test.project.presentation.base.BaseViewModel
 import toptal.test.project.presentation.base.BaseViewState
 import toptal.test.project.presentation.model.RoomPresentationModel
 import java.util.*
 
-sealed class ReportViewState: BaseViewState {
-    data class Initial(val rooms: List<RoomPresentationModel>): ReportViewState()
-    data class Success(val reportListModel: ReportListModel): ReportViewState()
-    object Loading: ReportViewState()
-    object Failure: ReportViewState()
-}
+data class ReportViewState(
+    val rooms: Event<List<RoomPresentationModel>>? = null,
+    val reportListModel: Event<ReportListModel>? = null
+) : BaseViewState
 
 class ReportViewModel(
     fetchRoomUseCase: FetchRoomUseCase,
     private val useCase: FetchReportForRoomUseCase
-): BaseViewModel<ReportViewState>() {
+) : BaseViewModel<ReportViewState>() {
 
     init {
+        _viewStates.value = ReportViewState()
         disposables += fetchRoomUseCase.execute()
             .subscribeBy(
                 onSuccess = {
-                    _viewStates.value = ReportViewState.Initial(
-                        it.map { model ->
+                    _viewStates.value = viewStates.value?.copy(
+                        rooms = Event(it.map { model ->
                             model.run {
                                 RoomPresentationModel(
                                     id,
@@ -44,7 +44,7 @@ class ReportViewModel(
                                     pressureDiff
                                 )
                             }
-                        }
+                        })
                     )
                 },
                 onError = {}
@@ -58,15 +58,14 @@ class ReportViewModel(
         endTime: Calendar,
         groupBy: GroupType
     ) {
-        _viewStates.value = ReportViewState.Loading
         disposables += useCase.execute(
             room, dataType, startTime, endTime, groupBy
         ).subscribeBy(
             onError = {
-                _viewStates.value = ReportViewState.Failure
+
             },
             onSuccess = {
-                _viewStates.value = ReportViewState.Success(it)
+                _viewStates.value = viewStates.value?.copy(reportListModel = Event(it))
             }
         )
     }

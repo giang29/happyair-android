@@ -3,4 +3,12 @@
     <string name="reports">Reports</string>
     <string name="ratings">Ratings</string>
     <string name="all">All</string>
+    <string name="temperature">Temperature</string>
+    <string name="freshness">Freshness</string>
+    <string name="humidity">Humidity</string>
+    <string name="smell">Smell</string>
+    <string name="cleanliness">Cleanliness</string>
+    <string name="lighting_condition">Lighting condition</string>
+    <string name="sound">Sound</string>
+    <string name="work_ability">Work ability</string>
 </resources>

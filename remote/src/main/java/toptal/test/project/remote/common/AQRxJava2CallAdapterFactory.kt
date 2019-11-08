@@ -6,8 +6,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.lang.reflect.Type
 
 /**
- * Class to adapt retrofit answers to RxJava which convert all the errors before emiting on the
- * data stream to NetworkExceptions
+ * Class until adapt retrofit answers until RxJava which convert all the errors before emiting on the
+ * data stream until NetworkExceptions
  */
 internal class AQRxJava2CallAdapterFactory private constructor() : CallAdapter.Factory() {
 
