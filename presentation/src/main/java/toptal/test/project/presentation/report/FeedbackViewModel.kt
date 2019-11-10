@@ -5,6 +5,7 @@ import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.parcel.Parcelize
+import toptal.test.project.common.model.FeedbackModel
 import toptal.test.project.common.model.Rating
 import toptal.test.project.common.model.ValueModel
 import toptal.test.project.domain.feedback.FetchAllFeedbackUseCase
@@ -109,11 +110,13 @@ class FeedbackViewModel(
 data class ValuePresentationModel(
     val value: Float,
     val answer: Map<String, String>?
-): Parcelable {
+) : Parcelable {
     fun getLocalizedString(): String? {
         return answer?.get(Locale.getDefault().language.toLowerCase(Locale.ROOT))
             ?: answer?.get("fi")
     }
+
+    fun toValueModel() = ValueModel(value, answer)
 }
 
 private fun ValueModel.toValuePresentationModel(): ValuePresentationModel {
@@ -135,4 +138,17 @@ data class FeedbackPresentationModel(
     val lighting: ValuePresentationModel?,
     val sound: ValuePresentationModel?,
     val workingAbility: ValuePresentationModel?
-) : Parcelable
+) : Parcelable {
+    fun toFeedbackModel() = FeedbackModel(
+        rating,
+        time,
+        temperature?.toValueModel(),
+        freshness?.toValueModel(),
+        humidity?.toValueModel(),
+        smell?.toValueModel(),
+        cleanliness?.toValueModel(),
+        lighting?.toValueModel(),
+        sound?.toValueModel(),
+        workingAbility?.toValueModel()
+    )
+}

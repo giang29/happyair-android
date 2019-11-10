@@ -1,13 +1,18 @@
 package toptal.test.project.remote.feedback
 
 import io.reactivex.Single
+import toptal.test.project.common.model.DataValueModel
 import toptal.test.project.common.model.FeedbackModel
 import toptal.test.project.common.model.Rating
+import toptal.test.project.common.nuukaDateFormat
+import toptal.test.project.common.nuukaResponseDateFormat
 import toptal.test.project.data.feedback.FeedbackRemoteDataStore
 import toptal.test.project.remote.HappyAirGateway
+import toptal.test.project.remote.NuukaService
 
 internal class FeedbackRemoteDataStoreImpl(
-    private val happyAirGateway: HappyAirGateway
+    private val happyAirGateway: HappyAirGateway,
+    private val nuukaService: NuukaService
 ) : FeedbackRemoteDataStore {
     override fun fetchAllFeedback(room: String, rating: Rating?): Single<List<FeedbackModel>> {
         return happyAirGateway.getFeedbacks(
@@ -54,6 +59,25 @@ internal class FeedbackRemoteDataStoreImpl(
                     )
                 }
                 .sortedByDescending { ratingRemoteModel -> ratingRemoteModel.time }
+        }
+    }
+
+    override fun fetchAirConditionData(
+        dataPointIds: List<Int>,
+        timestamp: Long
+    ): Single<List<DataValueModel>> {
+        return nuukaService.getCollectedData(
+            dataPointIds.joinToString(","),
+            nuukaDateFormat.format(timestamp - 60 * 60 * 1000L),
+            nuukaDateFormat.format(timestamp)
+        ).map {
+            it.map { model ->
+                DataValueModel(
+                    nuukaResponseDateFormat.parse(model.Timestamp).time,
+                    model.Value,
+                    model.DataPointID
+                )
+            }
         }
     }
 }

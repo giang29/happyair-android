@@ -8,6 +8,7 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
+import toptal.test.project.presentation.report.FeedbackDetailViewModel
 import toptal.test.project.presentation.report.FeedbackViewModel
 import toptal.test.project.presentation.report.ReportViewModel
 
@@ -29,5 +30,9 @@ val presentationModule: Kodein.Module = Kodein.Module("PresentationModule") {
 
     bindViewModel<FeedbackViewModel>() with provider {
         FeedbackViewModel(instance(), instance())
+    }
+
+    bindViewModel<FeedbackDetailViewModel>() with provider {
+        FeedbackDetailViewModel(instance())
     }
 }

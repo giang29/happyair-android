@@ -4,15 +4,31 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.f_feedback_detail.*
 import toptal.test.project.common.dateTimeDateFormat
 import toptal.test.project.common.model.Rating
 import toptal.test.project.meal.R
-import toptal.test.project.meal.base.StatelessBaseFragment
+import toptal.test.project.meal.base.BaseFragment
+import toptal.test.project.presentation.report.FeedbackDetailViewModel
+import toptal.test.project.presentation.report.FeedbackDetailViewState
 import java.util.*
 
 
-internal class FeedbackDetailFragment : StatelessBaseFragment() {
+internal class FeedbackDetailFragment : BaseFragment<FeedbackDetailViewModel, FeedbackDetailViewState>() {
+    override val viewModel: FeedbackDetailViewModel by provideViewModel()
+
+    private val adapter = GroupAdapter<GroupieViewHolder>()
+    override fun onStateChanged(viewState: FeedbackDetailViewState): Boolean {
+        viewState.collectedData?.map {
+            StatsItem(it)
+        }?.run(adapter::update)
+        return super.onStateChanged(viewState)
+    }
+
     override val layoutResource: Int = R.layout.f_feedback_detail
 
     private val args: FeedbackDetailFragmentArgs by navArgs()
@@ -22,6 +38,9 @@ internal class FeedbackDetailFragment : StatelessBaseFragment() {
         f_fragment_detail_toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
         }
+        f_feed_detail_stats_list.layoutManager = GridLayoutManager(requireContext(), 2, HORIZONTAL, false)
+        f_feed_detail_stats_list.adapter = adapter
+        viewModel.fetchCollectedData(args.room, args.feedback)
         args.feedback.run {
             f_feedback_detail_icon.setImageResource(
                 rating.getIcon()

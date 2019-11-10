@@ -11,4 +11,5 @@
     <string name="lighting_condition">Lighting condition</string>
     <string name="sound">Sound</string>
     <string name="work_ability">Work ability</string>
+    <string name="stats">Stats</string>
 </resources>

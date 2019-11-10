@@ -14,4 +14,8 @@ data class RoomModel(
     val temperature: Int?,
     val tvoc: Int?,
     val pressureDiff: Int?
-)
+) {
+    val dataPointIds = listOfNotNull(
+        co2, humidity, pm1, pm10, pm2_5, temperature, tvoc, pressureDiff
+    )
+}

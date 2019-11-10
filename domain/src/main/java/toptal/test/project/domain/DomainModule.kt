@@ -9,6 +9,8 @@ import org.kodein.di.generic.provider
 import toptal.test.project.common.TAG_SCHEDULER_POST_EXECTION
 import toptal.test.project.domain.feedback.FetchAllFeedbackUseCase
 import toptal.test.project.domain.feedback.FetchAllFeedbackUseCaseImpl
+import toptal.test.project.domain.feedback.FetchCollectedDataUseCase
+import toptal.test.project.domain.feedback.FetchCollectedDataUseCaseImpl
 import toptal.test.project.domain.report.FetchReportForRoomUseCase
 import toptal.test.project.domain.report.FetchReportForRoomUseCaseImpl
 import toptal.test.project.domain.room.FetchRoomUseCase
@@ -39,6 +41,14 @@ val domainModule: Kodein.Module = Kodein.Module("DomainModule") {
 
     bind<FetchRoomUseCase>() with provider {
         FetchRoomUseCaseImpl(
+            instance(),
+            instance(tag = TAG_SCHEDULER_BACKGROUND),
+            instance(tag = TAG_SCHEDULER_POST_EXECTION)
+        )
+    }
+
+    bind<FetchCollectedDataUseCase>() with provider {
+        FetchCollectedDataUseCaseImpl(
             instance(),
             instance(tag = TAG_SCHEDULER_BACKGROUND),
             instance(tag = TAG_SCHEDULER_POST_EXECTION)

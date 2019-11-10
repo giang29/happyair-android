@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,448 +13,482 @@
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="?attr/homeAsUpIndicator" />
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/f_feedback_detail_icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="@dimen/margin_default"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feedback_detail_date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/f_feedback_detail_rating"
-        tools:ignore="ContentDescription"
-        tools:src="@drawable/ic_good" />
+            <ImageView
+                android:id="@+id/f_feedback_detail_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="@dimen/margin_default"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feedback_detail_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/f_feedback_detail_rating"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_good" />
 
-    <TextView
-        android:id="@+id/f_feedback_detail_rating"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginTop="@dimen/margin_default"
-        android:layout_marginEnd="@dimen/margin_default"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/text_large"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/f_feedback_detail_icon"
-        app:layout_constraintTop_toBottomOf="@id/f_fragment_detail_toolbar"
-        tools:text="Good" />
+            <TextView
+                android:id="@+id/f_feedback_detail_rating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/f_feedback_detail_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Good" />
 
-    <TextView
-        android:id="@+id/f_feedback_detail_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginEnd="@dimen/margin_default"
-        app:layout_constraintStart_toEndOf="@+id/f_feedback_detail_icon"
-        app:layout_constraintTop_toBottomOf="@+id/f_feedback_detail_rating"
-        tools:text="Sep 19, 2019 at 12:00" />
+            <TextView
+                android:id="@+id/f_feedback_detail_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_marginEnd="@dimen/margin_default"
+                app:layout_constraintStart_toEndOf="@+id/f_feedback_detail_icon"
+                app:layout_constraintTop_toBottomOf="@+id/f_feedback_detail_rating"
+                tools:text="Sep 19, 2019 at 12:00" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_temp_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/temperature"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_temp"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_temp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_temp" />
+            <TextView
+                android:id="@+id/f_feed_detail_temp_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/temperature"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_temp"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_temp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_temp" />
 
-    <ImageView
-        android:id="@+id/f_feed_detail_icon_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feedback_detail_date"
-        app:srcCompat="@drawable/ic_good"
-        tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/f_feed_detail_icon_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feedback_detail_date"
+                app:srcCompat="@drawable/ic_good"
+                tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_temp"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_temp"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_temp"
-        tools:text="Good" />
+            <TextView
+                android:id="@+id/f_feed_detail_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_temp"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_temp"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_temp"
+                tools:text="Good" />
 
-    <View
-        android:id="@+id/f_feed_detail_divider_temp"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/gray_very_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_temp" />
+            <View
+                android:id="@+id/f_feed_detail_divider_temp"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/gray_very_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_temp" />
 
 
-    <TextView
-        android:id="@+id/f_feed_detail_fresh_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/freshness"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_fresh"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_fresh"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_fresh" />
+            <TextView
+                android:id="@+id/f_feed_detail_fresh_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/freshness"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_fresh"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_fresh"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_fresh" />
 
-    <ImageView
-        android:id="@+id/f_feed_detail_icon_fresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_temp"
-        app:srcCompat="@drawable/ic_good"
-        tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/f_feed_detail_icon_fresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_temp"
+                app:srcCompat="@drawable/ic_good"
+                tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_fresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_fresh"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_fresh"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_fresh"
-        tools:text="Good" />
+            <TextView
+                android:id="@+id/f_feed_detail_fresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_fresh"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_fresh"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_fresh"
+                tools:text="Good" />
 
-    <View
-        android:id="@+id/f_feedback_detail_divider_fresh"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/gray_very_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_fresh" />
+            <View
+                android:id="@+id/f_feedback_detail_divider_fresh"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/gray_very_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_fresh" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_humid_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/humidity"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_humid"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_humid"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_humid" />
+            <TextView
+                android:id="@+id/f_feed_detail_humid_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/humidity"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_humid"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_humid"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_humid" />
 
-    <ImageView
-        android:id="@+id/f_feed_detail_icon_humid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_fresh"
-        app:srcCompat="@drawable/ic_good"
-        tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/f_feed_detail_icon_humid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_fresh"
+                app:srcCompat="@drawable/ic_good"
+                tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_humid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_humid"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_humid"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_humid"
-        tools:text="Good" />
+            <TextView
+                android:id="@+id/f_feed_detail_humid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_humid"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_humid"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_humid"
+                tools:text="Good" />
 
-    <View
-        android:id="@+id/f_feedback_detail_divider_humid"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/gray_very_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_humid" />
+            <View
+                android:id="@+id/f_feedback_detail_divider_humid"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/gray_very_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_humid" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_smell_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/smell"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_smell"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_smell"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_smell" />
+            <TextView
+                android:id="@+id/f_feed_detail_smell_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/smell"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_smell"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_smell"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_smell" />
 
-    <ImageView
-        android:id="@+id/f_feed_detail_icon_smell"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_humid"
-        app:srcCompat="@drawable/ic_good"
-        tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/f_feed_detail_icon_smell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_humid"
+                app:srcCompat="@drawable/ic_good"
+                tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_smell"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_smell"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_smell"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_smell"
-        tools:text="Good" />
+            <TextView
+                android:id="@+id/f_feed_detail_smell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_smell"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_smell"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_smell"
+                tools:text="Good" />
 
-    <View
-        android:id="@+id/f_feedback_detail_divider_smell"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/gray_very_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_smell" />
+            <View
+                android:id="@+id/f_feedback_detail_divider_smell"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/gray_very_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_smell" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_clean_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/cleanliness"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_clean"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_clean"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_clean" />
+            <TextView
+                android:id="@+id/f_feed_detail_clean_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/cleanliness"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_clean"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_clean"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_clean" />
 
-    <ImageView
-        android:id="@+id/f_feed_detail_icon_clean"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_smell"
-        app:srcCompat="@drawable/ic_good"
-        tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/f_feed_detail_icon_clean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_smell"
+                app:srcCompat="@drawable/ic_good"
+                tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_clean"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_clean"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_clean"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_clean"
-        tools:text="Good" />
+            <TextView
+                android:id="@+id/f_feed_detail_clean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_clean"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_clean"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_clean"
+                tools:text="Good" />
 
-    <View
-        android:id="@+id/f_feedback_detail_divider_clean"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/gray_very_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_clean" />
+            <View
+                android:id="@+id/f_feedback_detail_divider_clean"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/gray_very_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_clean" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_light_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/lighting_condition"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_light"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_light"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_light" />
+            <TextView
+                android:id="@+id/f_feed_detail_light_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/lighting_condition"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_light"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_light"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_light" />
 
-    <ImageView
-        android:id="@+id/f_feed_detail_icon_light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_clean"
-        app:srcCompat="@drawable/ic_good"
-        tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/f_feed_detail_icon_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_clean"
+                app:srcCompat="@drawable/ic_good"
+                tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_light"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_light"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_light"
-        tools:text="Good" />
+            <TextView
+                android:id="@+id/f_feed_detail_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_light"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_light"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_light"
+                tools:text="Good" />
 
-    <View
-        android:id="@+id/f_feedback_detail_divider_lighting"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/gray_very_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_light" />
+            <View
+                android:id="@+id/f_feedback_detail_divider_lighting"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/gray_very_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_light" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_sound_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/sound"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_sound"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_sound"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_sound" />
+            <TextView
+                android:id="@+id/f_feed_detail_sound_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/sound"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_sound"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_sound"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_sound" />
 
-    <ImageView
-        android:id="@+id/f_feed_detail_icon_sound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_light"
-        app:srcCompat="@drawable/ic_good"
-        tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/f_feed_detail_icon_sound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_light"
+                app:srcCompat="@drawable/ic_good"
+                tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_sound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_sound"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_sound"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_sound"
-        tools:text="Good" />
+            <TextView
+                android:id="@+id/f_feed_detail_sound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_sound"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_sound"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_sound"
+                tools:text="Good" />
 
-    <View
-        android:id="@+id/f_feedback_detail_divider_sound"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/gray_very_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_sound" />
+            <View
+                android:id="@+id/f_feedback_detail_divider_sound"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/gray_very_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_sound" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_wa_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/work_ability"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_work"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_wa"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_work" />
+            <TextView
+                android:id="@+id/f_feed_detail_wa_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/work_ability"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_work"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_wa"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_work" />
 
-    <ImageView
-        android:id="@+id/f_feed_detail_icon_work"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_sound"
-        app:srcCompat="@drawable/ic_good"
-        tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/f_feed_detail_icon_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_sound"
+                app:srcCompat="@drawable/ic_good"
+                tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/f_feed_detail_wa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_work"
-        app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_work"
-        app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_work"
-        tools:text="Good" />
+            <TextView
+                android:id="@+id/f_feed_detail_wa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/f_feed_detail_icon_work"
+                app:layout_constraintEnd_toStartOf="@+id/f_feed_detail_icon_work"
+                app:layout_constraintTop_toTopOf="@+id/f_feed_detail_icon_work"
+                tools:text="Good" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="f_feed_detail_icon_temp,f_feed_detail_temp_label,f_feed_detail_temp,f_feed_detail_divider_temp" />
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="f_feed_detail_icon_temp,f_feed_detail_temp_label,f_feed_detail_temp,f_feed_detail_divider_temp" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_humid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="f_feed_detail_icon_humid,f_feed_detail_humid_label,f_feed_detail_humid,f_feedback_detail_divider_humid" />
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_humid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="f_feed_detail_icon_humid,f_feed_detail_humid_label,f_feed_detail_humid,f_feedback_detail_divider_humid" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_fresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="f_feed_detail_icon_fresh,f_feed_detail_fresh_label,f_feed_detail_fresh,f_feedback_detail_divider_fresh" />
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_fresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="f_feed_detail_icon_fresh,f_feed_detail_fresh_label,f_feed_detail_fresh,f_feedback_detail_divider_fresh" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_smell"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="f_feed_detail_icon_smell,f_feed_detail_smell_label,f_feed_detail_smell,f_feedback_detail_divider_smell" />
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_smell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="f_feed_detail_icon_smell,f_feed_detail_smell_label,f_feed_detail_smell,f_feedback_detail_divider_smell" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_clean"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="f_feed_detail_icon_clean,f_feed_detail_clean_label,f_feed_detail_clean,f_feedback_detail_divider_clean" />
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_clean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="f_feed_detail_icon_clean,f_feed_detail_clean_label,f_feed_detail_clean,f_feedback_detail_divider_clean" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_lighting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="f_feed_detail_icon_light,f_feed_detail_light_label,f_feed_detail_light,f_feedback_detail_divider_lighting" />
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_lighting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="f_feed_detail_icon_light,f_feed_detail_light_label,f_feed_detail_light,f_feedback_detail_divider_lighting" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_sound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="f_feed_detail_icon_sound,f_feed_detail_sound_label,f_feed_detail_sound,f_feedback_detail_divider_sound" />
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_sound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="f_feed_detail_icon_sound,f_feed_detail_sound_label,f_feed_detail_sound,f_feedback_detail_divider_sound" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_wa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="f_feed_detail_icon_work,f_feed_detail_wa_label,f_feed_detail_wa" />
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_wa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="f_feed_detail_icon_work,f_feed_detail_wa_label,f_feed_detail_wa" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/f_feed_detail_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/stats"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_icon_work" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/f_feed_detail_stats_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/f_feed_detail_stats"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:padding="@dimen/margin_default"
+                android:clipChildren="false"
+                tools:listitem="@layout/i_stats"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>

@@ -35,6 +35,16 @@ val remoteModule = Kodein.Module("RemoteModule") {
             .create(HappyAirGateway::class.java)
     }
 
+    bind<NuukaService>() with singleton {
+        Retrofit.Builder()
+            .addCallAdapterFactory(instance())
+            .addConverterFactory(instance())
+            .baseUrl("https://nuukacustomerwebapi.azurewebsites.net/api/v2.0/")
+            .client(instance())
+            .build()
+            .create(NuukaService::class.java)
+    }
+
     bind<OkHttpClient>() with singleton {
         OkHttpClient.Builder()
             .addInterceptor(instance(tag = TAG_INTERCEPTOR_LOGGING))
@@ -68,7 +78,7 @@ val remoteModule = Kodein.Module("RemoteModule") {
     }
 
     bind<FeedbackRemoteDataStore>() with provider {
-        FeedbackRemoteDataStoreImpl(instance())
+        FeedbackRemoteDataStoreImpl(instance(), instance())
     }
 
     bind<ReportRemoteDataStore>() with provider {
