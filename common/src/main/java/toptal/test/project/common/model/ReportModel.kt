@@ -5,5 +5,5 @@ import java.util.*
 data class ReportModel(
     val collectedTime: Calendar,
     val value: Float,
-    val rating: Float
+    val rating: Float?
 )

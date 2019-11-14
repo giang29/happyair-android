@@ -64,4 +64,5 @@ dependencies {
     implementation(Dependencies.navigationFragment)
     implementation(Dependencies.navigationUi)
     implementation(Dependencies.androidToggleSwitch)
+    implementation(Dependencies.picker)
 }

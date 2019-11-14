@@ -1,8 +1,11 @@
 package toptal.test.project.meal.report
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.core.view.children
 import androidx.core.view.forEach
 import androidx.core.view.get
 import com.anychart.APIlib
@@ -24,24 +27,36 @@ import com.anychart.scales.Linear
 import com.google.android.material.chip.Chip
 import com.jakewharton.rxbinding3.widget.checkedChanges
 import com.llollox.androidtoggleswitch.widgets.ToggleSwitch
+import toptal.test.project.common.dateMonthDateFormat
 import toptal.test.project.common.fullDateFormat
 import toptal.test.project.common.shortDateFormat
 import toptal.test.project.common.weekFormat
+import toptal.test.project.meal.base.clicksThrottle
+import toptal.test.project.meal.common.SublimePickerDialogFragment
 import toptal.test.project.presentation.model.RoomPresentationModel
 
 
-internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>() {
+internal class ReportFragment :
+    BaseFragment<ReportViewModel, ReportViewState>(),
+    SublimePickerDialogFragment.DateRangePickedListener {
+
     override val viewModel: ReportViewModel by provideViewModel()
 
     override val layoutResource: Int = R.layout.f_report
 
     private var selectedDatatype = AirDataType.CO2
 
+    private var startDate: Calendar = Calendar.getInstance().apply {
+        timeInMillis =
+            System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000
+    }
+
+    private var endDate: Calendar = Calendar.getInstance()
+
     private val cartesian by lazy {
         AnyChart.cartesian()
             .apply {
                 xScroller(true)
-                animation(true)
             }
     }
 
@@ -54,8 +69,28 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
         }
     }
 
+    @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        f_report_toggle_switch.children.forEachIndexed { index, v ->
+            if (index != 0) {
+                v.isEnabled = false
+                v.isClickable = false
+                (v as? ViewGroup)?.children?.forEach {
+                    it.isEnabled = false
+                    it.isClickable = false
+                }
+            }
+        }
+
+        f_report_date_range.text =
+            "${dateMonthDateFormat.format(startDate.timeInMillis)} - ${dateMonthDateFormat.format(endDate.timeInMillis)}"
+        f_report_date_range.clicksThrottle()
+            .subscribe {
+                SublimePickerDialogFragment.newInstance(startDate.timeInMillis, endDate.timeInMillis)
+                    .show(childFragmentManager, "date_range")
+            }
 
         f_report_graph.setChart(cartesian)
         f_report_graph.setZoomEnabled(true)
@@ -64,18 +99,7 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
         f_report_toggle_switch.setCheckedPosition(0)
         f_report_toggle_switch.onChangeListener = object : ToggleSwitch.OnChangeListener {
             override fun onToggleSwitchChanged(position: Int) {
-                (f_report_room_spinner.selectedItem as? RoomPresentationModel)?.run {
-                    viewModel.loadReport(
-                        id,
-                        selectedDatatype,
-                        Calendar.getInstance().apply {
-                            timeInMillis =
-                                System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000
-                        },
-                        Calendar.getInstance(),
-                        togglePositionToGroupType(position)
-                    )
-                }
+                onFilterChanged()
             }
         }
 
@@ -85,28 +109,43 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
                     v.isClickable = !it
 
                     if (it) {
-                        selectedDatatype = when (v.text.toString().toUpperCase(Locale.ROOT)) {
-                            AirDataType.CO2.toString() -> AirDataType.CO2
-                            AirDataType.TEMPERATURE.toString() -> AirDataType.TEMPERATURE
+                        selectedDatatype = when (v.id) {
+                            R.id.f_report_chip_co2 -> AirDataType.CO2
+                            R.id.f_report_chip_temp -> AirDataType.TEMPERATURE
+                            R.id.f_report_chip_pm1 -> AirDataType.PM1
+                            R.id.f_report_chip_pm10 -> AirDataType.PM10
+                            R.id.f_report_chip_pm25 -> AirDataType.PM2_5
+                            R.id.f_report_chip_pressure_diff -> AirDataType.PRESSURE_DIFF
+                            R.id.f_report_chip_tvoc -> AirDataType.TVOC
+                            R.id.f_report_chip_humidity -> AirDataType.HUMIDITY
                             else -> throw IllegalArgumentException(v.text.toString())
                         }
-                        (f_report_room_spinner.selectedItem as? RoomPresentationModel)?.run {
-                            viewModel.loadReport(
-                                id,
-                                selectedDatatype,
-                                Calendar.getInstance().apply {
-                                    timeInMillis =
-                                        System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000
-                                },
-                                Calendar.getInstance(),
-                                togglePositionToGroupType(
-                                    f_report_toggle_switch.checkedPosition ?: 0
-                                )
-                            )
-                        }
+                        onFilterChanged()
                     }
                 }
         }
+    }
+
+    private fun onFilterChanged() {
+        (f_report_room_spinner.selectedItem as? RoomPresentationModel)?.run {
+            viewModel.loadReport(
+                id,
+                selectedDatatype,
+                startDate,
+                endDate,
+                togglePositionToGroupType(
+                    f_report_toggle_switch.checkedPosition ?: 0
+                )
+            )
+        }
+    }
+
+    override fun onDateRangePicked(startDate: Calendar, endDate: Calendar) {
+        this.startDate = startDate
+        this.endDate = endDate
+        f_report_date_range.text =
+            "${dateMonthDateFormat.format(startDate.timeInMillis)} - ${dateMonthDateFormat.format(endDate.timeInMillis)}"
+        onFilterChanged()
     }
 
     override fun onStateChanged(viewState: ReportViewState): Boolean {
@@ -126,18 +165,7 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
                         position: Int,
                         id: Long
                     ) {
-                        viewModel.loadReport(
-                            get(position).id,
-                            selectedDatatype,
-                            Calendar.getInstance().apply {
-                                timeInMillis =
-                                    System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000
-                            },
-                            Calendar.getInstance(),
-                            togglePositionToGroupType(
-                                f_report_toggle_switch.checkedPosition ?: 0
-                            )
-                        )
+                        onFilterChanged()
                     }
                 }
             f_report_room_spinner.adapter = RoomAdapter(requireContext(), this)
@@ -161,11 +189,13 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
                 ValueDataEntry(formatDate(groupBy, it.collectedTime), it.value)
             }
 
-            val lineData = reports.map {
+            val lineData = reports.filter { it.rating != null }.map {
                 ValueDataEntry(formatDate(groupBy, it.collectedTime), it.rating)
             }
 
             val max = reports.map { it.value }.max() ?: 0f
+            val min = reports.map { it.value }.min() ?: 0f
+
             cartesian.column(columnData).name(type.toString())
                 .fill(
                     "function() {" +
@@ -188,11 +218,11 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
                 .scale(scalesLinear)
 
             val line = cartesian.line(lineData).stroke("{thickness: 2, color: '#0091fc'}")
-            line.markers().enabled(true)
+            line.markers().enabled(true).type(MarkerType.CIRCLE)
             line.name("Average Rating")
             line.yScale(scalesLinear)
 
-            cartesian.yScale().minimum(0.0)
+            cartesian.yScale().minimum(minOf(min, 0f))
 
             cartesian.yAxis(0).labels().format("{%Value}{groupsSeparator: } $unit")
 
@@ -202,12 +232,11 @@ internal class ReportFragment : BaseFragment<ReportViewModel, ReportViewState>()
         return super.onStateChanged(viewState)
     }
 
-    private fun formatDate(groupBy: GroupType, calendar: Calendar): String {
+    private fun formatDate(groupBy: GroupType?, calendar: Calendar): String {
         return when (groupBy) {
-            GroupType.DAILY -> fullDateFormat.format(calendar.time)
             GroupType.MONTHLY -> shortDateFormat.format(calendar.time)
             GroupType.WEEKLY -> "W${weekFormat.format(calendar.time)}"
-            GroupType.UNKNOWN -> throw IllegalArgumentException()
+            else -> fullDateFormat.format(calendar.time)
         }
     }
 }

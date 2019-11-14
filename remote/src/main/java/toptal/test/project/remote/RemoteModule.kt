@@ -82,7 +82,7 @@ val remoteModule = Kodein.Module("RemoteModule") {
     }
 
     bind<ReportRemoteDataStore>() with provider {
-        ReportRemoteDataStoreImpl()
+        ReportRemoteDataStoreImpl(instance())
     }
 
     bind<RoomRemote>() with provider {

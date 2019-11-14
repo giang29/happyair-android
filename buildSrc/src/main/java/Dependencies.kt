@@ -50,6 +50,8 @@ object Versions {
     const val fragmentNavigation = "2.1.0"
 
     const val androidToggleSwitch = "2.0.3"
+
+    const val picker = "2.1.2"
 }
 
 object Dependencies {
@@ -95,4 +97,5 @@ object Dependencies {
     const val navigationUi =
         "androidx.navigation:navigation-ui-ktx:${Versions.fragmentNavigation}"
     const val androidToggleSwitch = "com.llollox:androidtoggleswitch:${Versions.androidToggleSwitch}"
+    const val picker = "com.appeaser.sublimepickerlibrary:sublimepickerlibrary:${Versions.picker}"
 }

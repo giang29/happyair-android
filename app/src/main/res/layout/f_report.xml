@@ -75,6 +75,7 @@
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/f_report_chip_co2"
                 style="@style/Widget.AppTheme.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,6 +84,7 @@
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/f_report_chip_temp"
                 style="@style/Widget.AppTheme.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -91,54 +93,63 @@
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/f_report_chip_pm10"
                 style="@style/Widget.AppTheme.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:enabled="false"
                 android:text="PM10"
                 app:chipCornerRadius="@dimen/margin_half"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/f_report_chip_pm25"
                 style="@style/Widget.AppTheme.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:enabled="false"
                 android:text="PM2.5"
                 app:chipCornerRadius="@dimen/margin_half"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/f_report_chip_pm1"
                 style="@style/Widget.AppTheme.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="NO2"
+                android:text="PM1"
                 app:chipCornerRadius="@dimen/margin_half"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/f_report_chip_humidity"
                 style="@style/Widget.AppTheme.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="O3"
+                android:text="Humidity"
                 app:chipCornerRadius="@dimen/margin_half"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/f_report_chip_tvoc"
                 style="@style/Widget.AppTheme.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="USAQI"
+                android:text="TVOC"
+                app:chipCornerRadius="@dimen/margin_half"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/f_report_chip_pressure_diff"
+                style="@style/Widget.AppTheme.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pressure Difference"
                 app:chipCornerRadius="@dimen/margin_half"
                 tools:ignore="HardcodedText" />
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/f_report_date_range"
         android:background="@drawable/bg_box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

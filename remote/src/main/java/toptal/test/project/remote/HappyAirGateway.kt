@@ -5,6 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import toptal.test.project.common.model.RoomModel
 import toptal.test.project.remote.feedback.RatingsRemoteResponse
+import toptal.test.project.remote.report.ReportListRemoteModel
 
 interface HappyAirGateway {
     @GET("rooms")
@@ -17,4 +18,12 @@ interface HappyAirGateway {
         @Query("room") room: String,
         @Query("limitPoint") limit: Float
     ) : Single<RatingsRemoteResponse>
+
+    @GET("reports")
+    fun getReports(
+        @Query("id") room: String,
+        @Query("data") type: String,
+        @Query("startTime") startTime: Long,
+        @Query("endTime") endTime: Long
+    ) : Single<ReportListRemoteModel>
 }
