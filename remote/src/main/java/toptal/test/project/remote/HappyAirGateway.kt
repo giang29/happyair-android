@@ -24,6 +24,7 @@ interface HappyAirGateway {
         @Query("id") room: String,
         @Query("data") type: String,
         @Query("startTime") startTime: Long,
-        @Query("endTime") endTime: Long
+        @Query("endTime") endTime: Long,
+        @Query("groupBy") groupBy: String
     ) : Single<ReportListRemoteModel>
 }

@@ -1,7 +1,7 @@
 package toptal.test.project.common.model
 
-enum class GroupType {
-    DAILY, MONTHLY, WEEKLY, UNKNOWN
+enum class GroupType(val value: String) {
+    DAILY("day"), MONTHLY("month"), WEEKLY("week"), UNKNOWN("unknown")
 }
 
 enum class AirDataType(val value: String) {

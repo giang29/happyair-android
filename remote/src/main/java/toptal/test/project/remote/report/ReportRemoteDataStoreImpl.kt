@@ -1,7 +1,6 @@
 package toptal.test.project.remote.report
 
 import io.reactivex.Single
-import toptal.test.project.common.gatewayResponseDateFormat
 import toptal.test.project.common.model.AirDataType
 import toptal.test.project.common.model.GroupType
 import toptal.test.project.common.model.ReportListModel
@@ -36,17 +35,18 @@ internal class ReportRemoteDataStoreImpl(
             room,
             dataType.value,
             startTimeMillis / 1000,
-            endTimeMillis / 1000
+            endTimeMillis / 1000,
+            groupBy.value
         ).map {
             ReportListModel(
                 it.room,
                 AirDataType.toAirDataType(it.type),
                 it.unit,
-                null,
+                groupBy,
                 it.data.map { r ->
                     ReportModel(
                         Calendar.getInstance().apply {
-                            timeInMillis = gatewayResponseDateFormat.parse(r.collected_time).time
+                            timeInMillis = r.collected_time * 1000
                         },
                         r.value,
                         r.rating
@@ -58,14 +58,14 @@ internal class ReportRemoteDataStoreImpl(
 
     private fun getNormalizedTime(time: Calendar, groupBy: GroupType): Calendar {
         return when (groupBy) {
-            GroupType.DAILY -> time.apply {
+            GroupType.DAILY -> (time.clone() as Calendar).apply {
                 set(Calendar.HOUR_OF_DAY, 0)
                 set(Calendar.MINUTE, 0)
                 set(Calendar.SECOND, 0)
                 set(Calendar.MILLISECOND, 0)
                 timeInMillis += timeZone.rawOffset
             }
-            GroupType.MONTHLY -> time.apply {
+            GroupType.MONTHLY -> (time.clone() as Calendar).apply {
                 set(Calendar.HOUR_OF_DAY, 0)
                 set(Calendar.MINUTE, 0)
                 set(Calendar.SECOND, 0)
@@ -73,7 +73,7 @@ internal class ReportRemoteDataStoreImpl(
                 set(Calendar.DAY_OF_MONTH, 1)
                 timeInMillis += timeZone.rawOffset
             }
-            GroupType.WEEKLY -> time.apply {
+            GroupType.WEEKLY -> (time.clone() as Calendar).apply {
                 set(Calendar.HOUR_OF_DAY, 0)
                 set(Calendar.MINUTE, 0)
                 set(Calendar.SECOND, 0)

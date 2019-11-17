@@ -3,9 +3,7 @@ package toptal.test.project.meal.report
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
-import androidx.core.view.children
 import androidx.core.view.forEach
 import androidx.core.view.get
 import com.anychart.APIlib
@@ -29,6 +27,7 @@ import com.jakewharton.rxbinding3.widget.checkedChanges
 import com.llollox.androidtoggleswitch.widgets.ToggleSwitch
 import toptal.test.project.common.dateMonthDateFormat
 import toptal.test.project.common.fullDateFormat
+import toptal.test.project.common.model.ReportModel
 import toptal.test.project.common.shortDateFormat
 import toptal.test.project.common.weekFormat
 import toptal.test.project.meal.base.clicksThrottle
@@ -48,7 +47,7 @@ internal class ReportFragment :
 
     private var startDate: Calendar = Calendar.getInstance().apply {
         timeInMillis =
-            System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000
+            System.currentTimeMillis() - 7L * 24 * 60 * 60 * 1000
     }
 
     private var endDate: Calendar = Calendar.getInstance()
@@ -72,17 +71,6 @@ internal class ReportFragment :
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        f_report_toggle_switch.children.forEachIndexed { index, v ->
-            if (index != 0) {
-                v.isEnabled = false
-                v.isClickable = false
-                (v as? ViewGroup)?.children?.forEach {
-                    it.isEnabled = false
-                    it.isClickable = false
-                }
-            }
-        }
 
         f_report_date_range.text =
             "${dateMonthDateFormat.format(startDate.timeInMillis)} - ${dateMonthDateFormat.format(endDate.timeInMillis)}"
@@ -189,7 +177,15 @@ internal class ReportFragment :
                 ValueDataEntry(formatDate(groupBy, it.collectedTime), it.value)
             }
 
-            val lineData = reports.filter { it.rating != null }.map {
+            val lineData = reports.mapIndexed { index: Int, reportModel: ReportModel ->
+                if (reportModel.rating == null && (index == 0 || index == reports.size - 1)) {
+                    reportModel.copy(rating = 2.5f)
+                } else {
+                    reportModel
+                }
+            }.filter {
+                it.rating != null
+            }.map {
                 ValueDataEntry(formatDate(groupBy, it.collectedTime), it.rating)
             }
 
@@ -221,6 +217,7 @@ internal class ReportFragment :
             line.markers().enabled(true).type(MarkerType.CIRCLE)
             line.name("Average Rating")
             line.yScale(scalesLinear)
+            line.connectMissingPoints(true)
 
             cartesian.yScale().minimum(minOf(min, 0f))
 
