@@ -4,14 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
-import org.kodein.di.generic.instance
-import toptal.test.project.common.SharedPreferencesHelper
 
 internal abstract class StatelessActivity  : AppCompatActivity(), KodeinAware {
 
     protected abstract val layoutResource: Int
-
-    protected val sharedPreferencesHelper: SharedPreferencesHelper by instance()
 
     override val kodein: Kodein by lazy { (applicationContext as KodeinAware).kodein }
 

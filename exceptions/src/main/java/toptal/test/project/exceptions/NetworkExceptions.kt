@@ -330,16 +330,9 @@ sealed class ServerError(message: String) : RuntimeException(message) {
 class UnknownNetworkError(response: Response?) : RuntimeException(getMessage(response))
 
 /**
- * Unknown server error (i.e. Server returned an error with 200)
- */
-class UnknownServerError(response: String?) : RuntimeException(response)
-
-/**
  * Failed due to not being able to connect to server due to missing connectivity
  */
 class NoConnectionError(message: String) : RuntimeException(message)
-
-class MissingApiKeyExcpetion : RuntimeException()
 
 private fun getMessage(response: Response?): String {
     return response?.let {

@@ -1,7 +1,6 @@
 package toptal.test.project.meal.home
 
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import toptal.test.project.meal.R
 import toptal.test.project.meal.base.StatelessActivity
 import toptal.test.project.presentation.model.RoomPresentationModel
