@@ -12,4 +12,7 @@
     <string name="sound">Sound</string>
     <string name="work_ability">Work ability</string>
     <string name="stats">Stats</string>
+    <string name="good">Good</string>
+    <string name="bad">Bad</string>
+    <string name="home">Home</string>
 </resources>

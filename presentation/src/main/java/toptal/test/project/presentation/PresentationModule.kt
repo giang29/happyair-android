@@ -10,6 +10,7 @@ import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 import toptal.test.project.presentation.report.FeedbackDetailViewModel
 import toptal.test.project.presentation.report.FeedbackViewModel
+import toptal.test.project.presentation.report.RealtimeReportViewModel
 import toptal.test.project.presentation.report.ReportViewModel
 
 private inline fun <reified T : ViewModel> Kodein.Builder.bindViewModel(
@@ -34,5 +35,9 @@ val presentationModule: Kodein.Module = Kodein.Module("PresentationModule") {
 
     bindViewModel<FeedbackDetailViewModel>() with provider {
         FeedbackDetailViewModel(instance())
+    }
+
+    bindViewModel<RealtimeReportViewModel>() with provider {
+        RealtimeReportViewModel(instance())
     }
 }

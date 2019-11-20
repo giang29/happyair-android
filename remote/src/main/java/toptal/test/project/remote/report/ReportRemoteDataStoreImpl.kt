@@ -1,10 +1,8 @@
 package toptal.test.project.remote.report
 
 import io.reactivex.Single
-import toptal.test.project.common.model.AirDataType
-import toptal.test.project.common.model.GroupType
-import toptal.test.project.common.model.ReportListModel
-import toptal.test.project.common.model.ReportModel
+import toptal.test.project.common.model.*
+import toptal.test.project.common.model.Condition
 import toptal.test.project.data.report.ReportRemoteDataStore
 import toptal.test.project.remote.HappyAirGateway
 import java.lang.IllegalArgumentException
@@ -12,7 +10,7 @@ import java.util.*
 
 internal class ReportRemoteDataStoreImpl(
     private val happyAirGateway: HappyAirGateway
-): ReportRemoteDataStore {
+) : ReportRemoteDataStore {
     override fun loadReports(
         room: String,
         dataType: AirDataType,
@@ -83,5 +81,49 @@ internal class ReportRemoteDataStoreImpl(
             }
             GroupType.UNKNOWN -> throw IllegalArgumentException()
         }
+    }
+
+    override fun loadRealtimeReport(): Single<List<RealTimeConditionModel>> {
+        return happyAirGateway.getRealtimeCondition()
+            .map {
+                it.map { item ->
+                    val conditions = listOfNotNull(
+                        item.co2?.let { c ->
+                            Condition(AirDataType.CO2, c.value, c.unit)
+                        },
+                        item.temperature?.let { c ->
+                            Condition(AirDataType.TEMPERATURE, c.value, c.unit)
+                        },
+                        item.humidity?.let { c ->
+                            Condition(AirDataType.HUMIDITY, c.value, c.unit)
+                        },
+                        item.tvoc?.let { c ->
+                            Condition(AirDataType.TVOC, c.value, c.unit)
+                        },
+                        item.pm10?.let { c ->
+                            Condition(AirDataType.PM10, c.value, c.unit)
+                        },
+                        item.pm2_5?.let { c ->
+                            Condition(AirDataType.PM2_5, c.value, c.unit)
+                        },
+                        item.pm1?.let { c ->
+                            Condition(AirDataType.PM1, c.value, c.unit)
+                        },
+                        item.pressureDiff?.let { c ->
+                            Condition(AirDataType.PRESSURE_DIFF, c.value, c.unit)
+                        }
+                    )
+
+                    val goodRatings = setOf(Rating.VERY_GOOD, Rating.GOOD)
+                    val good = conditions.filter { goodRatings.contains(it.getRating()) }
+                    val bad = conditions.filter { !goodRatings.contains(it.getRating()) }
+                    RealTimeConditionModel(
+                        item.name,
+                        item.timestamp,
+                        good,
+                        bad
+                    )
+                }
+            }
     }
 }

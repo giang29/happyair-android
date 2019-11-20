@@ -11,6 +11,8 @@ import toptal.test.project.domain.feedback.FetchAllFeedbackUseCase
 import toptal.test.project.domain.feedback.FetchAllFeedbackUseCaseImpl
 import toptal.test.project.domain.feedback.FetchCollectedDataUseCase
 import toptal.test.project.domain.feedback.FetchCollectedDataUseCaseImpl
+import toptal.test.project.domain.report.FetchRealtimeReportUseCase
+import toptal.test.project.domain.report.FetchRealtimeReportUseCaseImpl
 import toptal.test.project.domain.report.FetchReportForRoomUseCase
 import toptal.test.project.domain.report.FetchReportForRoomUseCaseImpl
 import toptal.test.project.domain.room.FetchRoomUseCase
@@ -49,6 +51,13 @@ val domainModule: Kodein.Module = Kodein.Module("DomainModule") {
 
     bind<FetchCollectedDataUseCase>() with provider {
         FetchCollectedDataUseCaseImpl(
+            instance(),
+            instance(tag = TAG_SCHEDULER_BACKGROUND),
+            instance(tag = TAG_SCHEDULER_POST_EXECTION)
+        )
+    }
+    bind<FetchRealtimeReportUseCase>() with provider {
+        FetchRealtimeReportUseCaseImpl(
             instance(),
             instance(tag = TAG_SCHEDULER_BACKGROUND),
             instance(tag = TAG_SCHEDULER_POST_EXECTION)

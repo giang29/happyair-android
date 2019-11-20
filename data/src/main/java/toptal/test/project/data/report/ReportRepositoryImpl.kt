@@ -3,6 +3,7 @@ package toptal.test.project.data.report
 import io.reactivex.Single
 import toptal.test.project.common.model.AirDataType
 import toptal.test.project.common.model.GroupType
+import toptal.test.project.common.model.RealTimeConditionModel
 import toptal.test.project.common.model.ReportListModel
 import toptal.test.project.domain.report.ReportRepository
 import java.util.*
@@ -17,5 +18,9 @@ internal class ReportRepositoryImpl(private val reportRemoteDataStore: ReportRem
         groupBy: GroupType
     ): Single<ReportListModel> {
         return reportRemoteDataStore.loadReports(room, dataType, startTime, endTime, groupBy)
+    }
+
+    override fun loadRealtimeReports(): Single<List<RealTimeConditionModel>> {
+        return reportRemoteDataStore.loadRealtimeReport()
     }
 }

@@ -3,6 +3,7 @@ package toptal.test.project.data.report
 import io.reactivex.Single
 import toptal.test.project.common.model.AirDataType
 import toptal.test.project.common.model.GroupType
+import toptal.test.project.common.model.RealTimeConditionModel
 import toptal.test.project.common.model.ReportListModel
 import java.util.*
 
@@ -14,4 +15,6 @@ interface ReportRemoteDataStore {
         endTime: Calendar = Calendar.getInstance(),
         groupBy: GroupType = GroupType.DAILY
     ): Single<ReportListModel>
+
+    fun loadRealtimeReport(): Single<List<RealTimeConditionModel>>
 }

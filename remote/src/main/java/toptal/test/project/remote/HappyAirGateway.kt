@@ -5,6 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import toptal.test.project.common.model.RoomModel
 import toptal.test.project.remote.feedback.RatingsRemoteResponse
+import toptal.test.project.remote.report.RealTimeConditionRemoteModel
 import toptal.test.project.remote.report.ReportListRemoteModel
 
 interface HappyAirGateway {
@@ -27,4 +28,7 @@ interface HappyAirGateway {
         @Query("endTime") endTime: Long,
         @Query("groupBy") groupBy: String
     ) : Single<ReportListRemoteModel>
+
+    @GET("home")
+    fun getRealtimeCondition() : Single<List<RealTimeConditionRemoteModel>>
 }

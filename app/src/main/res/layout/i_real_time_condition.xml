@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_half"
+    android:orientation="vertical"
+    app:cardCornerRadius="@dimen/margin_half">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <TextView
+            android:id="@+id/i_real_time_condition_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#4CAF50"
+            android:gravity="center"
+            android:paddingTop="@dimen/margin_default"
+            android:paddingBottom="@dimen/margin_default"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="@+id/i_real_time_condition_image_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Healthy" />
+
+        <FrameLayout
+            android:id="@+id/i_real_time_condition_image_container"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="#84FA89"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/i_real_time_condition_status">
+
+            <ImageView
+                android:id="@+id/i_real_time_condition_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#84FA89"
+                android:padding="@dimen/margin_half"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/i_real_time_condition_status"
+                app:srcCompat="@drawable/ic_good"
+                tools:ignore="ContentDescription" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/i_real_time_condition_room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/i_real_time_condition_time"
+            app:layout_constraintStart_toEndOf="@+id/i_real_time_condition_status"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Room 354" />
+
+        <TextView
+            android:id="@+id/i_real_time_condition_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/i_real_time_condition_status"
+            app:layout_constraintStart_toEndOf="@+id/i_real_time_condition_status"
+            app:layout_constraintTop_toBottomOf="@+id/i_real_time_condition_room"
+            tools:text="24 April, 2019 at 10:00" />
+
+        <TextView
+            android:id="@+id/i_real_time_condition_good"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/margin_quarter"
+            android:text="@string/good"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toStartOf="@+id/i_real_time_condition_bad"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/i_real_time_condition_image_container"
+            app:layout_constraintTop_toBottomOf="@+id/i_real_time_condition_status" />
+
+        <TextView
+            android:id="@+id/i_real_time_condition_bad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/margin_quarter"
+            android:text="@string/bad"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/i_real_time_condition_good"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/i_real_time_condition_good"
+            app:layout_constraintTop_toTopOf="@+id/i_real_time_condition_good" />
+
+        <LinearLayout
+            android:id="@+id/i_real_time_condition_good_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:divider="@drawable/empty_divider"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/margin_quarter"
+            android:paddingEnd="@dimen/margin_quarter"
+            android:showDividers="middle|end"
+            android:weightSum="3"
+            app:layout_constraintBottom_toBottomOf="@id/i_real_time_condition_image_container"
+            app:layout_constraintEnd_toEndOf="@+id/i_real_time_condition_good"
+            app:layout_constraintStart_toStartOf="@+id/i_real_time_condition_good"
+            app:layout_constraintTop_toBottomOf="@+id/i_real_time_condition_good" />
+
+        <View
+            android:id="@+id/i_real_time_condition_separator"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/gray_border"
+            app:layout_constraintBottom_toBottomOf="@+id/i_real_time_condition_good_list"
+            app:layout_constraintStart_toEndOf="@+id/i_real_time_condition_good_list"
+            app:layout_constraintTop_toTopOf="@+id/i_real_time_condition_good_list" />
+
+        <LinearLayout
+            android:id="@+id/i_real_time_condition_bad_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:divider="@drawable/empty_divider"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/margin_quarter"
+            android:paddingEnd="@dimen/margin_quarter"
+            android:showDividers="middle|end"
+            android:weightSum="3"
+            app:layout_constraintBottom_toBottomOf="@id/i_real_time_condition_image_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/i_real_time_condition_separator"
+            app:layout_constraintTop_toBottomOf="@+id/i_real_time_condition_bad" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
