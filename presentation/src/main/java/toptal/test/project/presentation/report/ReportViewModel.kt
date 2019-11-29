@@ -1,6 +1,7 @@
 package toptal.test.project.presentation.report
 
 import com.jakewharton.rxrelay2.PublishRelay
+import io.reactivex.Observable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import toptal.test.project.common.model.AirDataType
@@ -67,7 +68,10 @@ class ReportViewModel(
                 useCase.execute(
                     it.room, it.dataType, it.startTime, it.endTime, it.groupBy
                 ).toObservable()
-            }.subscribeBy(
+            }
+            .onErrorResumeNext(
+                Observable.empty<ReportListModel>()
+            ).subscribeBy(
                 onError = {
 
                 },
