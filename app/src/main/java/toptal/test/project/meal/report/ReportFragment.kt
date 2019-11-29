@@ -10,8 +10,6 @@ import com.anychart.APIlib
 import com.anychart.AnyChart
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import kotlinx.android.synthetic.main.f_report.*
-import toptal.test.project.common.model.AirDataType
-import toptal.test.project.common.model.GroupType
 import toptal.test.project.meal.R
 import toptal.test.project.meal.base.BaseFragment
 import toptal.test.project.meal.report.adapter.RoomAdapter
@@ -27,7 +25,7 @@ import com.jakewharton.rxbinding3.widget.checkedChanges
 import com.llollox.androidtoggleswitch.widgets.ToggleSwitch
 import toptal.test.project.common.dateMonthDateFormat
 import toptal.test.project.common.fullDateFormat
-import toptal.test.project.common.model.ReportModel
+import toptal.test.project.common.model.*
 import toptal.test.project.common.shortDateFormat
 import toptal.test.project.common.weekFormat
 import toptal.test.project.meal.base.clicksThrottle
@@ -174,7 +172,8 @@ internal class ReportFragment :
 
             cartesian.animation(true)
             val columnData = reports.map {
-                ValueDataEntry(formatDate(groupBy, it.collectedTime), it.value)
+                val condition = Condition(type, it.value, unit)
+                CustomDataEntry(formatDate(groupBy, it.collectedTime), it.value, condition.getRating())
             }
 
             val lineData = reports.mapIndexed { index: Int, reportModel: ReportModel ->
@@ -189,17 +188,16 @@ internal class ReportFragment :
                 ValueDataEntry(formatDate(groupBy, it.collectedTime), it.rating)
             }
 
-            val max = reports.map { it.value }.max() ?: 0f
             val min = reports.map { it.value }.min() ?: 0f
 
             cartesian.column(columnData).name(type.toString())
                 .fill(
                     "function() {" +
-                            "var max = ${max};\n" +
-                            "if (this.value > max*4/5 + max/5) return '#f56566';\n" +
-                            "if (this.value > max*3/5 + max/5) return 'orange';\n" +
-                            "if (this.value > max*2/5 + max/5) return 'yellow';\n" +
-                            "return '#7dc206';}"
+                            "if (this.rating === 'Too bad') return 'red';\n" +
+                            "if (this.rating === 'Bad') return 'orange';\n" +
+                            "if (this.rating === 'OK') return 'yellow';\n" +
+                            "if (this.rating === 'Good') return '#8bc34a';\n" +
+                            "return 'green';}"
                 )
                 .stroke("#ffffff", 0, "5", StrokeLineJoin.BEVEL, StrokeLineCap.SQUARE)
                 .legendItem().enabled(false)
@@ -234,6 +232,16 @@ internal class ReportFragment :
             GroupType.MONTHLY -> shortDateFormat.format(calendar.time)
             GroupType.WEEKLY -> "W${weekFormat.format(calendar.time)}"
             else -> fullDateFormat.format(calendar.time)
+        }
+    }
+
+    private class CustomDataEntry internal constructor(
+        x: String,
+        value: Number,
+        rating: Rating
+    ) : ValueDataEntry(x, value) {
+        init {
+            setValue("rating", rating.stringValue)
         }
     }
 }
