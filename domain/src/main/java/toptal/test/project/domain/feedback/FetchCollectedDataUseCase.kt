@@ -2,10 +2,7 @@ package toptal.test.project.domain.feedback
 
 import io.reactivex.Scheduler
 import io.reactivex.Single
-import toptal.test.project.common.model.CollectedDataModel
-import toptal.test.project.common.model.DataValueModel
-import toptal.test.project.common.model.FeedbackModel
-import toptal.test.project.common.model.RoomModel
+import toptal.test.project.common.model.*
 
 interface FetchCollectedDataUseCase {
     fun execute(roomModel: RoomModel, feedbackModel: FeedbackModel):
@@ -29,49 +26,57 @@ internal class FetchCollectedDataUseCaseImpl(
                             roomModel.co2 -> findLatestValue(v)?.let {
                                 CollectedDataModel(
                                     "CO2",
-                                    it
+                                    it,
+                                    AirDataType.CO2
                                 )
                             }
                             roomModel.humidity -> findLatestValue(v)?.let {
                                 CollectedDataModel(
                                     "Humidity",
-                                    it
+                                    it,
+                                    AirDataType.HUMIDITY
                                 )
                             }
                             roomModel.pm1 -> findLatestValue(v)?.let {
                                 CollectedDataModel(
                                     "PM1",
-                                    it
+                                    it,
+                                    AirDataType.PM1
                                 )
                             }
                             roomModel.pm10 -> findLatestValue(v)?.let {
                                 CollectedDataModel(
                                     "PM10",
-                                    it
+                                    it,
+                                    AirDataType.PM10
                                 )
                             }
                             roomModel.pm2_5 -> findLatestValue(v)?.let {
                                 CollectedDataModel(
                                     "PM2.5",
-                                    it
+                                    it,
+                                    AirDataType.PM2_5
                                 )
                             }
                             roomModel.pressureDiff -> findLatestValue(v)?.let {
                                 CollectedDataModel(
                                     "Pressure Difference",
-                                    it
+                                    it,
+                                    AirDataType.PRESSURE_DIFF
                                 )
                             }
                             roomModel.temperature -> findLatestValue(v)?.let {
                                 CollectedDataModel(
                                     "Temperature",
-                                    it
+                                    it,
+                                    AirDataType.TEMPERATURE
                                 )
                             }
                             roomModel.tvoc -> findLatestValue(v)?.let {
                                 CollectedDataModel(
                                     "TVOC",
-                                    it
+                                    it,
+                                    AirDataType.TVOC
                                 )
                             }
                             else -> null
