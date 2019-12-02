@@ -68,6 +68,7 @@ class RealTimeConditionItem(private val realTimeConditionModel: RealTimeConditio
             }
         )
         viewHolder.i_real_time_condition_good_list.removeAllViews()
+        viewHolder.i_real_time_condition_bad_list.removeAllViews()
         realTimeConditionModel.good.sortedByDescending { it.getRating().point }.take(3)
             .forEach {
                 viewHolder.i_real_time_condition_good_list.addView(
