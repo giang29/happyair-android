@@ -213,7 +213,7 @@ internal class ReportFragment :
 
             val line = cartesian.line(lineData).stroke("{thickness: 2, color: '#0091fc'}")
             line.markers().enabled(true).type(MarkerType.CIRCLE)
-            line.name("Average Rating")
+            line.name("User Rating")
             line.yScale(scalesLinear)
             line.connectMissingPoints(true)
 
